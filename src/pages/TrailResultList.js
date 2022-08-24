@@ -14,23 +14,25 @@ function TrailResultList() {
   };
 
   useEffect(() => {
-    getTrails();
+     getTrails();
   }, []);
 
   return (
-    trails.map((trail, index) => {
+    trails.map((trail, index) => { 
       console.log(trail);
       return (
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-        </Card>
+        <>
+          <Card style={{ width: "25rem" }} key={index} className="mt-5 ms-3">
+            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Title>
+                <h1 className="text-center">Trail Name</h1>
+              </Card.Title>
+              <h4 className="text-center">Park Name</h4>
+              <Card.Text className="text-center" >Distance | Type</Card.Text>
+            </Card.Body>
+          </Card>
+        </>
       );
     })
   )
