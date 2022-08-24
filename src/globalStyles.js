@@ -72,10 +72,10 @@ export const Section = styled.section`
 	}
 `;
 
-export const Body = styled.body`
+export const BodyContent = styled.body`
   padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
   margin: ${({ margin }) => (margin ? margin : "10px 10px 10px 10px")};
-  //background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
+//   background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
 //   position: ${({ position }) => (position ? position : "")};
 //   width: ${({ width }) => (width ? width : "auto")};
 //   min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
@@ -88,7 +88,7 @@ export const Body = styled.body`
 //   }
 `;
 
-export const Row = styled.div`
+export const RowField = styled.div`
 	display: flex;
 	justify-content: ${({ justify }) => (justify ? justify : '')};
 	align-items: ${({ align }) => (align ? align : '')};
@@ -105,7 +105,7 @@ export const Row = styled.div`
 	flex-wrap: ${({ wrap }) => (wrap ? wrap : '')};
 `;
 
-export const Column = styled.div`
+export const ColumnField = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: ${({ justify }) => (justify ? justify : '')};

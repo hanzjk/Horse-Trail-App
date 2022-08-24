@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Column, Row } from '../../globalStyles';
+import { ColumnField, RowField } from "../../globalStyles";
 
 export const FooterContainer = styled.div`
 	background-color: #101522;
@@ -31,27 +31,27 @@ export const FooterSubHeading = styled.p`
 	font-size: 24px;
 `;
 
-export const FooterRow = styled(Row)`
-	flex-wrap: wrap;
-	@media screen and (max-width: 820px) {
-		> div {
-			width: 20%;
-		}
+export const FooterRow = styled(RowField)`
+  flex-wrap: wrap;
+  @media screen and (max-width: 820px) {
+    > div {
+      width: 20%;
+    }
 
-		> div:first-child {
-			width: 100%;
-		}
-	}
+    > div:first-child {
+      width: 100%;
+    }
+  }
 
-	@media screen and (max-width: 420px) {
-		flex-direction: column;
-		align-items: center;
+  @media screen and (max-width: 420px) {
+    flex-direction: column;
+    align-items: center;
 
-		* {
-			width: 100%;
-			text-align: center;
-		}
-	}
+    * {
+      width: 100%;
+      text-align: center;
+    }
+  }
 `;
 
 export const FooterGrid = styled.div`
@@ -61,7 +61,7 @@ export const FooterGrid = styled.div`
 	align-items: center;
 `;
 
-export const FooterColumn = styled(Column)`
+export const FooterColumn = styled(ColumnField)`
 	@media screen and (max-width: 999px) {
 		align-items: center;
 		grid-column: 1/-1;
