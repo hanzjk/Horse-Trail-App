@@ -72,54 +72,54 @@ export const Section = styled.section`
   }
 `;
 
-export const Body = styled.body`
+export const BodyContent = styled.body`
   padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
   margin: ${({ margin }) => (margin ? margin : "10px 10px 10px 10px")};
-  //background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
-  //   position: ${({ position }) => (position ? position : "")};
-  //   width: ${({ width }) => (width ? width : "auto")};
-  //   min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
-  //   max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
-  //   height: ${({ height }) => (height ? height : "auto")};
-  //   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
-  //   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
-  //   @media screen and (max-width: 768px) {
-  //     padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
-  //   }
+//   background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
+//   position: ${({ position }) => (position ? position : "")};
+//   width: ${({ width }) => (width ? width : "auto")};
+//   min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
+//   max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
+//   height: ${({ height }) => (height ? height : "auto")};
+//   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
+//   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
+//   @media screen and (max-width: 768px) {
+//     padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
+//   }
 `;
 
-export const Row = styled.div`
-  display: flex;
-  justify-content: ${({ justify }) => (justify ? justify : "")};
-  align-items: ${({ align }) => (align ? align : "")};
-  gap: ${({ gap }) => (gap ? gap : "")};
-  padding: ${({ padding }) => (padding ? padding : "")};
-  margin: ${({ margin }) => (margin ? margin : "")};
-  position: ${({ position }) => (position ? position : "")};
-  width: ${({ width }) => (width ? width : "auto")};
-  min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
-  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
-  height: ${({ height }) => (height ? height : "auto")};
-  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
-  min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
-  flex-wrap: ${({ wrap }) => (wrap ? wrap : "")};
+export const RowField = styled.div`
+	display: flex;
+	justify-content: ${({ justify }) => (justify ? justify : '')};
+	align-items: ${({ align }) => (align ? align : '')};
+	gap: ${({ gap }) => (gap ? gap : '')};
+	padding: ${({ padding }) => (padding ? padding : '')};
+	margin: ${({ margin }) => (margin ? margin : '')};
+	position: ${({ position }) => (position ? position : '')};
+	width: ${({ width }) => (width ? width : 'auto')};
+	min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
+	max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : 'auto')};
+	height: ${({ height }) => (height ? height : 'auto')};
+	max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
+	min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
+	flex-wrap: ${({ wrap }) => (wrap ? wrap : '')};
 `;
 
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: ${({ justify }) => (justify ? justify : "")};
-  align-items: ${({ align }) => (align ? align : "")};
-  gap: ${({ gap }) => (gap ? gap : "")};
-  padding: ${({ padding }) => (padding ? padding : "")};
-  margin: ${({ margin }) => (margin ? margin : "")};
-  position: ${({ position }) => (position ? position : "")};
-  width: ${({ width }) => (width ? width : "auto")};
-  min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
-  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
-  height: ${({ height }) => (height ? height : "auto")};
-  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
-  min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
+export const ColumnField = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: ${({ justify }) => (justify ? justify : '')};
+	align-items: ${({ align }) => (align ? align : '')};
+	gap: ${({ gap }) => (gap ? gap : '')};
+	padding: ${({ padding }) => (padding ? padding : '')};
+	margin: ${({ margin }) => (margin ? margin : '')};
+	position: ${({ position }) => (position ? position : '')};
+	width: ${({ width }) => (width ? width : 'auto')};
+	min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
+	max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : 'auto')};
+	height: ${({ height }) => (height ? height : 'auto')};
+	max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
+	min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
 `;
 
 export const Button = styled.button`
