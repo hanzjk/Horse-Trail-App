@@ -1,62 +1,12 @@
 import React from 'react';
-import {
-	FooterLinkItems,
-	FooterLinkTitle,
-	FooterLink,
-	FooterLogo,
-	SocialIcon,
-	FooterRights,
-	FooterSocialIcon,
-	FooterWrapper,
-	FooterAddress,
-	FooterColumn,
-	FooterGrid,
-} from './FooterStyles';
-import { footerData, footerSocialData } from '../../data/FooterData';
-import { Section,RowField } from "../../globalStyles";
 
+import "./footer.css";
 function Footer() {
 	return (
-		<Section padding="4rem 0 2rem 0" >
-			<FooterWrapper>
-				<FooterGrid justify="space-between">
-					<FooterColumn id="footerLogo">
-						<FooterLogo to="/">
-							<SocialIcon src="./assets/logo.png" />
-							Delta
-						</FooterLogo>
-						<FooterAddress>
-							69 Street, Delta Building, US Road, Los Angeles 123
-						</FooterAddress>
-
-						<RowField>
-							{footerSocialData.map((social, index) => (
-								<FooterSocialIcon
-									key={index}
-									href="/"
-									target="_blank"
-									aria-label={social.name}
-								>
-									{social.icon}
-								</FooterSocialIcon>
-							))}
-						</RowField>
-					</FooterColumn>
-					{footerData.map((footerItem, index) => (
-						<FooterLinkItems key={index}>
-							<FooterLinkTitle>{footerItem.title}</FooterLinkTitle>
-							{footerItem.links.map((link, linkIndex) => (
-								<FooterLink key={linkIndex} to="/">
-									{link}
-								</FooterLink>
-							))}
-						</FooterLinkItems>
-					))}
-				</FooterGrid>
-				<FooterRights>Delta © 2021</FooterRights>
-			</FooterWrapper>
-		</Section>
-	);
+    <div className="footer text-center">
+      <p>Copyright © Top Horse Trails </p>
+    </div>
+  );
 }
 
 export default Footer;
