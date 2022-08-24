@@ -4,12 +4,12 @@ import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "./globalStyles";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-
-//Pages
+import "bootstrap/dist/css/bootstrap.css";
 import Home from "./pages/Home";
-
 import Footer from "./components/Footer/Footer";
 import About from "./pages/About";
+import AddTrail from "./pages/AddTrail";
+import AddCamp from "./pages/AddCamp";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +20,8 @@ root.render(
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/about" exact element={<About />} />
+        <Route exact path="/add-trail" element={<AddTrail />} />
+        <Route exact path="/add-camp" element={<AddCamp />} />
       </Routes>
       <Footer />
     </Router>
