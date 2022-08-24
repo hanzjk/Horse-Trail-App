@@ -57,9 +57,9 @@ export const TextWrapper = styled.span`
   margin-top: ${({ mt }) => (mt ? mt : "")};
 `;
 export const Section = styled.section`
-  padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
-  margin: ${({ margin }) => (margin ? margin : "20px 0 0 0")};
-  background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
+  padding: ${({ padding }) => (padding ? padding : "0px 0 0px 0")};
+  margin: ${({ margin }) => (margin ? margin : "0px 0 0 0")};
+ background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
   position: ${({ position }) => (position ? position : "")};
   width: ${({ width }) => (width ? width : "auto")};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
@@ -68,58 +68,61 @@ export const Section = styled.section`
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
   @media screen and (max-width: 768px) {
-    padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
+  	padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
   }
 `;
 
-export const Body = styled.body`
-  padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
-  margin: ${({ margin }) => (margin ? margin : "10px 10px 10px 10px")};
-  //background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
-  //   position: ${({ position }) => (position ? position : "")};
-  //   width: ${({ width }) => (width ? width : "auto")};
-  //   min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
-  //   max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
-  //   height: ${({ height }) => (height ? height : "auto")};
-  //   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
-  //   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
-  //   @media screen and (max-width: 768px) {
-  //     padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
-  //   }
+export const BodyContent = styled.body`
+   padding: ${({ padding }) => (padding ? padding : "10px 0 50px 0")};
+   margin: ${({ margin }) => (margin ? margin : "10px 10px 50px 10px")};
+  //margin: ${({ margin }) => (margin ? margin : "0px 0 0 0")};
+  background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
+  // position: ${({ position }) => (position ? position : "")};
+  // width: ${({ width }) => (width ? width : "auto")};
+  // min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
+  // max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
+  // height: ${({ height }) => (height ? height : "auto")};
+  // max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
+  // min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
+  // @media screen and (max-width: 768px) {
+  // 	padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
+  // }
 `;
 
-export const Row = styled.div`
-  display: flex;
-  justify-content: ${({ justify }) => (justify ? justify : "")};
-  align-items: ${({ align }) => (align ? align : "")};
-  gap: ${({ gap }) => (gap ? gap : "")};
-  padding: ${({ padding }) => (padding ? padding : "")};
-  margin: ${({ margin }) => (margin ? margin : "")};
-  position: ${({ position }) => (position ? position : "")};
-  width: ${({ width }) => (width ? width : "auto")};
-  min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
-  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
-  height: ${({ height }) => (height ? height : "auto")};
-  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
-  min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
-  flex-wrap: ${({ wrap }) => (wrap ? wrap : "")};
+
+
+export const RowField = styled.div`
+	display: flex;
+	justify-content: ${({ justify }) => (justify ? justify : '')};
+	align-items: ${({ align }) => (align ? align : '')};
+	gap: ${({ gap }) => (gap ? gap : '')};
+	padding: ${({ padding }) => (padding ? padding : '')};
+	margin: ${({ margin }) => (margin ? margin : '')};
+	position: ${({ position }) => (position ? position : '')};
+	width: ${({ width }) => (width ? width : 'auto')};
+	min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
+	max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : 'auto')};
+	height: ${({ height }) => (height ? height : 'auto')};
+	max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
+	min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
+	flex-wrap: ${({ wrap }) => (wrap ? wrap : '')};
 `;
 
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: ${({ justify }) => (justify ? justify : "")};
-  align-items: ${({ align }) => (align ? align : "")};
-  gap: ${({ gap }) => (gap ? gap : "")};
-  padding: ${({ padding }) => (padding ? padding : "")};
-  margin: ${({ margin }) => (margin ? margin : "")};
-  position: ${({ position }) => (position ? position : "")};
-  width: ${({ width }) => (width ? width : "auto")};
-  min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
-  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
-  height: ${({ height }) => (height ? height : "auto")};
-  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
-  min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
+export const ColumnField = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: ${({ justify }) => (justify ? justify : '')};
+	align-items: ${({ align }) => (align ? align : '')};
+	gap: ${({ gap }) => (gap ? gap : '')};
+	padding: ${({ padding }) => (padding ? padding : '')};
+	margin: ${({ margin }) => (margin ? margin : '')};
+	position: ${({ position }) => (position ? position : '')};
+	width: ${({ width }) => (width ? width : 'auto')};
+	min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
+	max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : 'auto')};
+	height: ${({ height }) => (height ? height : 'auto')};
+	max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
+	min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
 `;
 
 export const Button = styled.button`

@@ -10,6 +10,10 @@ import Footer from "./components/Footer/Footer";
 import About from "./pages/About";
 import AddTrail from "./pages/AddTrail";
 import AddCamp from "./pages/AddCamp";
+import SearchPage from "./pages/SearchPage";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +26,7 @@ root.render(
         <Route path="/about" exact element={<About />} />
         <Route exact path="/add-trail" element={<AddTrail />} />
         <Route exact path="/add-camp" element={<AddCamp />} />
+        <Route path="/search" exact element={<SearchPage />} />
       </Routes>
       <Footer />
     </Router>
