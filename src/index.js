@@ -8,15 +8,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import Home from "./pages/Home";
 import Footer from "./components/Footer/Footer";
 import About from "./pages/About";
-<<<<<<< HEAD
 import AddTrail from "./pages/AddTrail";
 import AddCamp from "./pages/AddCamp";
-=======
 import SearchPage from "./pages/SearchPage";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
->>>>>>> d6b31c6 (Search Page Added)
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

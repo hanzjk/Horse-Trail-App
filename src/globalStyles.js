@@ -57,24 +57,24 @@ export const TextWrapper = styled.span`
   margin-top: ${({ mt }) => (mt ? mt : "")};
 `;
 export const Section = styled.section`
-	padding: ${({ padding }) => (padding ? padding : '120px 0 50px 0')};
-	margin: ${({ margin }) => (margin ? margin : '10px 0 0 0')};
-	background: ${({ inverse }) => (inverse ? 'white' : '#071c2f')};
-	position: ${({ position }) => (position ? position : '')};
-	width: ${({ width }) => (width ? width : 'auto')};
-	min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
-	max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : 'auto')};
-	height: ${({ height }) => (height ? height : 'auto')};
-	max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
-	min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
-	@media screen and (max-width: 768px) {
-		padding: ${({ smPadding }) => (smPadding ? smPadding : '70px 0')};
-	}
+  padding: ${({ padding }) => (padding ? padding : "0px 0 0px 0")};
+  //margin: ${({ margin }) => (margin ? margin : "0px 0 0 0")};
+  background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
+  // position: ${({ position }) => (position ? position : "")};
+  // width: ${({ width }) => (width ? width : "auto")};
+  // min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
+  // max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : "auto")};
+  // height: ${({ height }) => (height ? height : "auto")};
+  // max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
+  // min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
+  // @media screen and (max-width: 768px) {
+  // 	padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
+  // }
 `;
 
 export const BodyContent = styled.body`
-//   padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
-//   margin: ${({ margin }) => (margin ? margin : "10px 10px 10px 10px")};
+   padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
+   margin: ${({ margin }) => (margin ? margin : "10px 10px 10px 10px")};
 //   background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
 //   position: ${({ position }) => (position ? position : "")};
 //   width: ${({ width }) => (width ? width : "auto")};
