@@ -1,5 +1,5 @@
 import React from 'react';
-import { Body } from "../globalStyles"; 
+import { BodyContent } from "../globalStyles"; 
 
 
 // Hero Feature Content Carousel
@@ -8,9 +8,9 @@ const Home = () => {
 	return (
     <>
       {/* Add Body tag before each component otherwise it won't render :(*/}
-      <Body>
+      <BodyContent>
         <p>home</p>
-      </Body>{" "}
+      </BodyContent>{" "}
     </>
   );
 };

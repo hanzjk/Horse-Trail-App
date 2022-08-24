@@ -10,6 +10,10 @@ import Home from "./pages/Home";
 
 import Footer from "./components/Footer/Footer";
 import About from "./pages/About";
+import SearchPage from "./pages/SearchPage";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +24,7 @@ root.render(
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/about" exact element={<About />} />
+        <Route path="/search" exact element={<SearchPage />} />
       </Routes>
       <Footer />
     </Router>

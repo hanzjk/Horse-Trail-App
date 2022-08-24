@@ -13,7 +13,7 @@ import {
 	FooterGrid,
 } from './FooterStyles';
 import { footerData, footerSocialData } from '../../data/FooterData';
-import { Row, Section } from '../../globalStyles';
+import { Section,RowField } from "../../globalStyles";
 
 function Footer() {
 	return (
@@ -29,7 +29,7 @@ function Footer() {
 							69 Street, Delta Building, US Road, Los Angeles 123
 						</FooterAddress>
 
-						<Row align="center" margin="auto  0 0 0" gap="1rem">
+						<RowField>
 							{footerSocialData.map((social, index) => (
 								<FooterSocialIcon
 									key={index}
@@ -40,7 +40,7 @@ function Footer() {
 									{social.icon}
 								</FooterSocialIcon>
 							))}
-						</Row>
+						</RowField>
 					</FooterColumn>
 					{footerData.map((footerItem, index) => (
 						<FooterLinkItems key={index}>

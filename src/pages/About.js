@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Body } from "../globalStyles";
+import { BodyContent } from "../globalStyles";
 
 
 
@@ -8,9 +8,9 @@ function About() {
   return (
     <>
       {/* Add Body tag before each component */}
-      <Body>
+      <BodyContent>
         <p>about</p>
-      </Body>
+      </BodyContent>
     </>
   );
 }
