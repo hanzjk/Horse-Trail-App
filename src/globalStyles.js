@@ -73,8 +73,8 @@ export const Section = styled.section`
 `;
 
 export const BodyContent = styled.body`
-  padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
-  margin: ${({ margin }) => (margin ? margin : "10px 10px 10px 10px")};
+//   padding: ${({ padding }) => (padding ? padding : "120px 0 50px 0")};
+//   margin: ${({ margin }) => (margin ? margin : "10px 10px 10px 10px")};
 //   background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
 //   position: ${({ position }) => (position ? position : "")};
 //   width: ${({ width }) => (width ? width : "auto")};
