@@ -32,20 +32,6 @@ function addTrailImages(name, file) {
   });
 }
 
-function addCampImages(name, file) {
-  return new Promise((resolve, reject) => {
-    storage
-      .ref(`camps/images/${name}/${file.name}`)
-      .put(file)
-      .then((docRef) => {
-        resolve(docRef);
-      })
-      .catch((e) => {
-        reject(e);
-      });
-  });
-}
-
 function addTrail(
   atvOrOffroad,
   bannerName,
@@ -122,83 +108,42 @@ function addTrail(
   });
 }
 
-function addCamp(
-  amenitiesCheck,
-  bannerName,
-  bestSeasonsCheck,
-  campName,
-  campNotes,
-  campSiteTypesCheck,
-  campType,
-  city,
-  costPerNight,
-  description,
-  email,
-  facebook,
-  horseSite,
-  imageGal1Name,
-  imageGal2Name,
-  imageGal3Name,
-  instagram,
-  keywords,
-  longitude,
-  latitude,
-  paperworkRequired,
-  parkName,
-  petPolicy,
-  phone,
-  reservation,
-  reservationCall,
-  reservationDescription,
-  reservationEmail,
-  reservationLink,
-  restrictions,
-  roadToCamp,
-  state,
-  twitter,
-  website
-) {
+function getAllTrails() {
   return new Promise((resolve, reject) => {
-    const data = {
-      amenitiesCheck: amenitiesCheck,
-      bannerName: bannerName,
-      bestSeasonsCheck: bestSeasonsCheck,
-      campName: campName,
-      campNotes: campNotes,
-      campSiteTypesCheck: campSiteTypesCheck,
-      campType: campType,
-      city: city,
-      costPerNight: costPerNight,
-      description: description,
-      email: email,
-      facebook: facebook,
-      horseSite: horseSite,
-      imageGal1Name: imageGal1Name,
-      imageGal2Name: imageGal2Name,
-      imageGal3Name: imageGal3Name,
-      instagram: instagram,
-      keywords: keywords,
-      longitude: longitude,
-      latitude: latitude,
-      paperworkRequired: paperworkRequired,
-      parkName: parkName,
-      petPolicy: petPolicy,
-      phone: phone,
-      reservation: reservation,
-      reservationCall: reservationCall,
-      reservationDescription: reservationDescription,
-      reservationEmail: reservationEmail,
-      reservationLink: reservationLink,
-      restrictions: restrictions,
-      roadToCamp: roadToCamp,
-      state: state,
-      twitter: twitter,
-      website: website,
-    };
-    db.collection("camps")
-      .add(data)
-      .then((docRef) => {
-        resolve(docRef);
+    db.collection("trails")
+      .get()
+      .then((allTrails) => {
+        resolve(allTrails);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+//get gpx file as a url to download
+function getGpxFiles(name, fileName) {
+  return new Promise((resolve, reject) => {
+    storage
+      .ref(`trails/gpx/${name}/${fileName}`)
+      .getDownloadURL()
+      .then((url) => {
+        resolve(url);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+//get image file as a url to download
+function getTrailImages(name, imageName) {
+  return new Promise((resolve, reject) => {
+    storage
+      .ref(`trails/images/${name}/${imageName}`)
+      .getDownloadURL()
+      .then((url) => {
+        resolve(url);
       })
       .catch((e) => {
         reject(e);
@@ -208,8 +153,9 @@ function addCamp(
 
 export default {
   addTrail,
-  addCamp,
-  addCampImages,
   addTrailImages,
   addGpxFiles,
+  getAllTrails,
+  getGpxFiles,
+  getTrailImages,
 };
