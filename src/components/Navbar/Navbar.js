@@ -48,7 +48,7 @@ const Navbar = () => {
         <NavbarContainer>
           <NavLogo to="/">
             <NavIcon src="./assets/logo.png" alt="logo" />
-            Delta
+            Top Horse Trails
           </NavLogo>
           <MobileIcon onClick={handleClick}>
             {show ? <FaTimes /> : <CgMenuRight />}

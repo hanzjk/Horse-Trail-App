@@ -217,7 +217,10 @@ export default function AddTrail() {
   }
 
   return (
-    <div className="container" style={{ paddingTop: "100px" }}>
+    <div
+      className="container"
+      style={{ paddingTop: "100px", paddingBottom: "100px" }}
+    >
       <h1 className="h3 mb-3 font-weight-normal">Add Camp</h1>
       <form className="needs-validation" encType="multipart/form-data">
         <div className="row">
@@ -969,7 +972,7 @@ export default function AddTrail() {
             type="submit"
             style={{
               marginTop: "15px",
-              backgroundColor: "#002D62",
+              backgroundColor: "#071c2f",
               color: "white",
             }}
             onClick={onSubmit}

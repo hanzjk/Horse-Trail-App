@@ -102,7 +102,37 @@ function addCamp(
   });
 }
 
+function getAllCamps() {
+  return new Promise((resolve, reject) => {
+    db.collection("camps")
+      .get()
+      .then((allCamps) => {
+        resolve(allCamps);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+//get image file as a url to download
+function getCampImages(name, imageName) {
+  return new Promise((resolve, reject) => {
+    storage
+      .ref(`camps/images/${name}/${imageName}`)
+      .getDownloadURL()
+      .then((url) => {
+        resolve(url);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
 export default {
   addCamp,
   addCampImages,
+  getAllCamps,
+  getCampImages,
 };
