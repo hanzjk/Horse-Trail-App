@@ -10,6 +10,8 @@ import Footer from "./components/Footer/Footer";
 import About from "./pages/About";
 import AddTrail from "./pages/AddTrail";
 import AddCamp from "./pages/AddCamp";
+import DisplayTrail from "./pages/DisplayTrail";
+import DisplayCamp from "./pages/DisplayCamp";
 import SearchPage from "./pages/SearchPage";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -27,6 +29,8 @@ root.render(
         <Route exact path="/add-trail" element={<AddTrail />} />
         <Route exact path="/add-camp" element={<AddCamp />} />
         <Route path="/search" exact element={<SearchPage />} />
+        <Route exact path="/display-trail" element={<DisplayTrail />} />
+        <Route exact path="/display-camp" element={<DisplayCamp />} />
       </Routes>
       <Footer />
     </Router>

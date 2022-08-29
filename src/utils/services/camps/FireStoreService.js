@@ -39,6 +39,7 @@ function addCamp(
   keywords,
   longitude,
   latitude,
+  nearByPlaces,
   paperworkRequired,
   parkName,
   petPolicy,
@@ -76,6 +77,7 @@ function addCamp(
       keywords: keywords,
       longitude: longitude,
       latitude: latitude,
+      nearByPlaces: nearByPlaces,
       paperworkRequired: paperworkRequired,
       parkName: parkName,
       petPolicy: petPolicy,
@@ -130,9 +132,24 @@ function getCampImages(name, imageName) {
   });
 }
 
+function getCamp(id) {
+  return new Promise((resolve, reject) => {
+    db.collection("camps")
+      .doc(id)
+      .get()
+      .then((camp) => {
+        resolve(camp);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
 export default {
   addCamp,
   addCampImages,
   getAllCamps,
+  getCamp,
   getCampImages,
 };

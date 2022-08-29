@@ -16,6 +16,7 @@ export default function AddTrail() {
   const [keywords, setKeywords] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
+  const [nearByPlaces, setNearByPlaces] = useState("");
   const [paperworkRequired, setPaperworkRequired] = useState("Yes");
   const [parkName, setParkName] = useState("");
   const [petPolicy, setPetPolicy] = useState("");
@@ -165,6 +166,7 @@ export default function AddTrail() {
                               keywords,
                               longitude,
                               latitude,
+                              nearByPlaces,
                               paperworkRequired,
                               parkName,
                               petPolicy,
@@ -849,7 +851,7 @@ export default function AddTrail() {
           </div>
         </div>
         <div className="row">
-          <div className="col md-6">
+          <div className="col md-3">
             <div className="form-group" style={{ marginBottom: "15px" }}>
               <label style={{ marginBottom: "5px" }}>Camp Notes</label>
               <input
@@ -860,6 +862,23 @@ export default function AddTrail() {
                 placeholder="Enter the Camp Notes"
                 onChange={(e) => {
                   setCampNotes(e.target.value);
+                }}
+              ></input>
+            </div>
+          </div>
+          <div className="col md-3">
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>
+                Nearby Places to Visit
+              </label>
+              <input
+                required={true}
+                type="text"
+                className="form-control"
+                name="nearbyPlaces"
+                placeholder="Enter the Nearby Places to Visit"
+                onChange={(e) => {
+                  setNearByPlaces(e.target.value);
                 }}
               ></input>
             </div>

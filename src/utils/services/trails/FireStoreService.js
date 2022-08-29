@@ -151,6 +151,20 @@ function getTrailImages(name, imageName) {
   });
 }
 
+function getTrail(id) {
+  return new Promise((resolve, reject) => {
+    db.collection("trails")
+      .doc(id)
+      .get()
+      .then((trail) => {
+        resolve(trail);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
 export default {
   addTrail,
   addTrailImages,
@@ -158,4 +172,5 @@ export default {
   getAllTrails,
   getGpxFiles,
   getTrailImages,
+  getTrail,
 };
