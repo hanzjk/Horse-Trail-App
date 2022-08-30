@@ -1,9 +1,50 @@
 import { React, useEffect, useState } from "react";
 import FireStoreService from "../utils/services/trails/FireStoreService";
 import { Card } from "react-bootstrap";
+import { FaStar } from "react-icons/fa";
+
+const colors = {
+  orange: "#FFBA5A",
+  grey: "#a9a9a9",
+};
+
+const styles = {
+  stars: {
+    display: "flex",
+    flexDirection: "row",
+  },
+};
 
 export default function DisplayTrail() {
   const [trailDetails, setTrailDetails] = useState({});
+  const [currentValue, setCurrentValue] = useState(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const stars = Array(5).fill(0);
+
+  const [reviewResult, setReviewResult] = useState("");
+
+  const [ratings, setRatings] = useState([]);
+  const [rateFilled, setRateFilled] = useState(0);
+
+  const handleClick = (value) => {
+    setCurrentValue(value);
+    FireStoreService.addRatings("tTXVdpQDIEaipok5TJPV", value)
+      .then(() => {
+        setReviewResult("Review submitted successfully");
+      })
+      .catch((e) => {
+        setReviewResult("Error occurred! Please try again.");
+      });
+  };
+
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
+  };
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined);
+  };
+
   useEffect(() => {
     FireStoreService.getTrail("tTXVdpQDIEaipok5TJPV")
       .then((response) => {
@@ -76,6 +117,17 @@ export default function DisplayTrail() {
         displayObstacles(trailDetails.obstaclesCheck.obstacles);
         displaySeasons(trailDetails.bestSeasonsCheck.bestSeasons);
         displayTrailHeads(trailDetails.trailHeadCheck.trailHead);
+
+        FireStoreService.getRating("tTXVdpQDIEaipok5TJPV")
+          .then((response) => {
+            setRatings(
+              response.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+            );
+            displayRating();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       })
       .catch((e) => console.log(e));
   }, []);
@@ -236,7 +288,6 @@ export default function DisplayTrail() {
 
     for (var i = 0; i < check.length; i++) {
       if (check[i] === "Restrooms") {
-        console.log("lk");
         restroom.setAttribute(
           "src",
           "https://img.icons8.com/ios-filled/50/000000/cottage--v1.png"
@@ -255,6 +306,24 @@ export default function DisplayTrail() {
     }
   }
 
+  function displayRating() {
+    var tot = 0;
+    for (var i = 0; i < ratings.length; i++) {
+      tot = tot + ratings[i].rate;
+    }
+
+    var overall = tot / ratings.length;
+    if (overall % 2 == 0) {
+      setRateFilled(overall);
+    } else {
+      if (overall - parseInt(overall) >= 0.5) {
+        setRateFilled(parseInt(overall) + 1);
+      } else {
+        setRateFilled(parseInt(overall));
+      }
+    }
+  }
+
   return (
     <div
       className="container"
@@ -266,6 +335,21 @@ export default function DisplayTrail() {
             <h1 className="text-center">{trailDetails.trailName}</h1>
             <h2 className="text-center">{trailDetails.parkName}</h2>
             <h3 className="text-center">{trailDetails.trailType}</h3>
+            <div style={styles.stars} className="justify-content-center">
+              {stars.map((_, index) => {
+                return (
+                  <FaStar
+                    key={index}
+                    size={24}
+                    color={rateFilled > index ? colors.orange : colors.grey}
+                    style={{
+                      marginRight: 10,
+                      cursor: "pointer",
+                    }}
+                  />
+                );
+              })}
+            </div>
           </Card.Title>
           <div className="row p-3">
             <img
@@ -280,7 +364,7 @@ export default function DisplayTrail() {
             ></img>
           </div>
           <div className="row text-center">
-            <div className="col md-4">
+            <div className="col md-3">
               <Card style={{ border: "none" }}>
                 <Card.Body>
                   <Card.Title
@@ -298,7 +382,7 @@ export default function DisplayTrail() {
                 </Card.Body>
               </Card>
             </div>
-            <div className="col md-4">
+            <div className="col md-3">
               <Card style={{ border: "none" }}>
                 <Card.Body>
                   <Card.Title
@@ -314,7 +398,7 @@ export default function DisplayTrail() {
                 </Card.Body>
               </Card>
             </div>
-            <div className="col md-4">
+            <div className="col md-6">
               <Card style={{ border: "none" }}>
                 <Card.Body>
                   <Card.Title
@@ -679,6 +763,45 @@ export default function DisplayTrail() {
               </Card.Body>
             </Card>
           </div>
+          <br></br>
+          <form className="needs-validation">
+            <div className="row">
+              <div className="form-radio" style={{ marginBottom: "15px" }}>
+                <label style={{ marginBottom: "5px" }}>
+                  <h4>Rate the Trail</h4>(submit the rate by clicking the
+                  required stars)
+                </label>
+                <div style={styles.stars}>
+                  {stars.map((_, index) => {
+                    return (
+                      <FaStar
+                        key={index}
+                        size={24}
+                        onClick={() => handleClick(index + 1)}
+                        onMouseOver={() => handleMouseOver(index + 1)}
+                        onMouseLeave={handleMouseLeave}
+                        color={
+                          (hoverValue || currentValue) > index
+                            ? colors.orange
+                            : colors.grey
+                        }
+                        style={{
+                          marginRight: 10,
+                          cursor: "pointer",
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+                <br></br>
+                {reviewResult ? (
+                  <div class="alert alert-info" role="alert">
+                    {reviewResult}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </form>
         </Card.Body>
       </Card>
     </div>
