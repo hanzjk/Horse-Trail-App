@@ -83,7 +83,7 @@ function addTrail(
       keywords: keywords,
       longitude: longitude,
       latitude: latitude,
-      miles: miles,
+      miles: parseFloat(miles),
       obstaclesCheck: obstaclesCheck,
       parkName: parkName,
       parkingImageName: parkingImageName,
@@ -165,12 +165,46 @@ function getTrail(id) {
   });
 }
 
+function addRatings(id, rate) {
+  return new Promise((resolve, reject) => {
+    const data = {
+      id: id,
+      rate: parseInt(rate),
+    };
+    db.collection("trailsRatings")
+      .add(data)
+      .then((docRef) => {
+        resolve(docRef);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+function getRating(id) {
+  return new Promise((resolve, reject) => {
+    var query = db.collection("trailsRatings");
+    query = query.where("id", "==", id);
+    query
+      .get()
+      .then((ratings) => {
+        resolve(ratings);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
 export default {
+  addRatings,
   addTrail,
   addTrailImages,
   addGpxFiles,
   getAllTrails,
   getGpxFiles,
+  getRating,
   getTrailImages,
   getTrail,
 };

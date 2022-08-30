@@ -1,14 +1,63 @@
 import { React, useEffect, useState } from "react";
 import FireStoreService from "../utils/services/camps/FireStoreService";
 import { Card } from "react-bootstrap";
+import { FaStar } from "react-icons/fa";
+
+const colors = {
+  orange: "#FFBA5A",
+  grey: "#a9a9a9",
+};
+
+const styles = {
+  stars: {
+    display: "flex",
+    flexDirection: "row",
+  },
+};
 
 export default function DisplayCamp() {
   const [campDetails, setCampDetails] = useState({});
+  const [currentValue, setCurrentValue] = useState(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const stars = Array(5).fill(0);
+
+  const [reviewResult, setReviewResult] = useState("");
+  const [ratings, setRatings] = useState([]);
+  const [rateFilled, setRateFilled] = useState(0);
+
+  const handleClick = (value) => {
+    setCurrentValue(value);
+    FireStoreService.addRatings("Q1QXQTNfuoCu7d1IdI7Q", value)
+      .then(() => {
+        setReviewResult("Review submitted successfully");
+      })
+      .catch((e) => {
+        setReviewResult("Error occurred! Please try again.");
+      });
+  };
+
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
+  };
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined);
+  };
+
   useEffect(() => {
     FireStoreService.getCamp("Q1QXQTNfuoCu7d1IdI7Q")
       .then((response) => {
-        console.log(response.data());
         setCampDetails(response.data());
+
+        const website = document.getElementById("website");
+        website.setAttribute("href", campDetails.website);
+        const fb = document.getElementById("fb");
+        fb.setAttribute("href", campDetails.facebook);
+        const twitter = document.getElementById("twitter");
+        twitter.setAttribute("href", campDetails.twitter);
+        const insta = document.getElementById("insta");
+        insta.setAttribute("href", campDetails.instagram);
+
         const pathBanner = campDetails.campName;
         FireStoreService.getCampImages(
           "banners/" + pathBanner,
@@ -63,6 +112,17 @@ export default function DisplayCamp() {
         displayCampSites(campDetails.campSiteTypesCheck.campSiteTypes);
         displaySeasons(campDetails.bestSeasonsCheck.bestSeasons);
         displayAmenities(campDetails.amenitiesCheck.amenities);
+
+        FireStoreService.getRating("Q1QXQTNfuoCu7d1IdI7Q")
+          .then((response) => {
+            setRatings(
+              response.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+            );
+            displayRating();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       })
       .catch((e) => console.log(e));
   }, []);
@@ -99,36 +159,43 @@ export default function DisplayCamp() {
     const dispersed = document.getElementById("dispersed");
     const tentSite = document.getElementById("tentSite");
     const rvSite = document.getElementById("rvSite");
+    const cabins = document.getElementById("cabins");
     dispersed.setAttribute(
       "src",
-      "https://img.icons8.com/ios/50/000000/bridge.png"
+      "https://img.icons8.com/ios/50/000000/spade.png"
     );
     tentSite.setAttribute(
       "src",
-      "https://img.icons8.com/ios/50/000000/wave-lines.png"
+      "https://img.icons8.com/ios/50/000000/camping-tent.png"
     );
     rvSite.setAttribute(
       "src",
-      "https://img.icons8.com/ios/50/000000/landslide.png"
+      "https://img.icons8.com/external-vitaliy-gorbachev-lineal-vitaly-gorbachev/60/000000/external-caravan-camping-vitaliy-gorbachev-lineal-vitaly-gorbachev.png"
     );
+    cabins.setAttribute("src", "https://img.icons8.com/ios/50/000000/home.png");
 
     for (var i = 0; i < check.length; i++) {
       if (check[i] === "Dispersed") {
         dispersed.setAttribute(
           "src",
-          "https://img.icons8.com/ios-filled/50/000000/bridge.png"
+          "https://img.icons8.com/ios-filled/50/000000/spade.png"
         );
       } else {
       }
       if (check[i] === "Tent Site") {
         tentSite.setAttribute(
           "src",
-          "https://img.icons8.com/ios-filled/50/000000/wave-lines.png"
+          "https://img.icons8.com/ios-filled/50/000000/camping-tent.png"
         );
       } else if (check[i] === "Rv Site") {
         rvSite.setAttribute(
           "src",
-          "https://img.icons8.com/ios-filled/50/000000/landslide.png"
+          "https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/60/000000/external-caravan-camping-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
+        );
+      } else if (check[i] === "Cabins") {
+        cabins.setAttribute(
+          "src",
+          "https://img.icons8.com/ios-filled/50/000000/home.png"
         );
       }
     }
@@ -206,7 +273,6 @@ export default function DisplayCamp() {
 
     for (var i = 0; i < check.length; i++) {
       if (check[i] === "Restrooms") {
-        console.log("lk");
         restroom.setAttribute(
           "src",
           "https://img.icons8.com/ios-filled/50/000000/cottage--v1.png"
@@ -235,6 +301,24 @@ export default function DisplayCamp() {
     }
   }
 
+  function displayRating() {
+    var tot = 0;
+    for (var i = 0; i < ratings.length; i++) {
+      tot = tot + ratings[i].rate;
+    }
+
+    var overall = tot / ratings.length;
+    if (overall % 2 == 0) {
+      setRateFilled(overall);
+    } else {
+      if (overall - parseInt(overall) >= 0.5) {
+        setRateFilled(parseInt(overall) + 1);
+      } else {
+        setRateFilled(parseInt(overall));
+      }
+    }
+  }
+
   return (
     <div
       className="container"
@@ -248,6 +332,21 @@ export default function DisplayCamp() {
               {campDetails.city}&nbsp;{campDetails.state}
             </h2>
             <h3 className="text-center">{campDetails.campType}</h3>
+            <div style={styles.stars} className="justify-content-center">
+              {stars.map((_, index) => {
+                return (
+                  <FaStar
+                    key={index}
+                    size={24}
+                    color={rateFilled > index ? colors.orange : colors.grey}
+                    style={{
+                      marginRight: 10,
+                      cursor: "pointer",
+                    }}
+                  />
+                );
+              })}
+            </div>
           </Card.Title>
           <div className="row p-3">
             <img
@@ -443,78 +542,15 @@ export default function DisplayCamp() {
                     <div className="col md-3">
                       <img alt="Rv Site" id="rvSite"></img>
                     </div>
+                    <div className="col md-3">
+                      <img alt="Cabins" id="cabins"></img>
+                    </div>
                   </div>
                 </Card.Body>
               </Card>
             </div>
           </div>
-          <br></br>
-          <div className="row text-center">
-            <div className="col md-3">
-              <Card style={{ border: "none" }}>
-                <Card.Body>
-                  <Card.Title
-                    style={{
-                      backgroundColor: "#101522",
-                      color: "white",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Website
-                  </Card.Title>
-                  <div>{campDetails.website}</div>
-                </Card.Body>
-              </Card>
-            </div>
-            <div className="col md-3">
-              <Card style={{ border: "none" }}>
-                <Card.Body>
-                  <Card.Title
-                    style={{
-                      backgroundColor: "#101522",
-                      color: "white",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Facebook
-                  </Card.Title>
-                  <div>{campDetails.facebook}</div>
-                </Card.Body>
-              </Card>
-            </div>
-            <div className="col md-3">
-              <Card style={{ border: "none" }}>
-                <Card.Body>
-                  <Card.Title
-                    style={{
-                      backgroundColor: "#101522",
-                      color: "white",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Instagram
-                  </Card.Title>
-                  <div>{campDetails.instagram}</div>
-                </Card.Body>
-              </Card>
-            </div>
-            <div className="col md-3">
-              <Card style={{ border: "none" }}>
-                <Card.Body>
-                  <Card.Title
-                    style={{
-                      backgroundColor: "#101522",
-                      color: "white",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Twitter
-                  </Card.Title>
-                  <div>{campDetails.twitter}</div>
-                </Card.Body>
-              </Card>
-            </div>
-          </div>
+
           <br></br>
           <div className="row text-center">
             <div className="col md-3">
@@ -651,6 +687,48 @@ export default function DisplayCamp() {
           </div>
           <br></br>
           <div className="row text-center">
+            <div className="col md-4">
+              <Card style={{ border: "none" }}>
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      backgroundColor: "#101522",
+                      color: "white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Links
+                  </Card.Title>
+                  <a id="website">
+                    <img
+                      alt="Website"
+                      src="https://img.icons8.com/ios-filled/50/000000/internet.png"
+                    ></img>
+                  </a>
+
+                  <a id="fb">
+                    <img
+                      alt="Facebook"
+                      src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png"
+                    ></img>
+                  </a>
+
+                  <a id="twitter">
+                    <img
+                      alt="Twitter"
+                      src="https://img.icons8.com/ios-filled/50/000000/twitter.png"
+                    ></img>
+                  </a>
+
+                  <a id="insta">
+                    <img
+                      alt="Instagram"
+                      src="https://img.icons8.com/ios-filled/50/000000/instagram-new--v1.png"
+                    ></img>
+                  </a>
+                </Card.Body>
+              </Card>
+            </div>
             <div className="col md-3">
               <Card style={{ border: "none" }}>
                 <Card.Body>
@@ -790,6 +868,45 @@ export default function DisplayCamp() {
               </Card.Body>
             </Card>
           </div>
+          <br></br>
+          <form className="needs-validation">
+            <div className="row">
+              <div className="form-radio" style={{ marginBottom: "15px" }}>
+                <label style={{ marginBottom: "5px" }}>
+                  <h4>Rate the Camp</h4>(submit the rate by clicking the
+                  required stars)
+                </label>
+                <div style={styles.stars}>
+                  {stars.map((_, index) => {
+                    return (
+                      <FaStar
+                        key={index}
+                        size={24}
+                        onClick={() => handleClick(index + 1)}
+                        onMouseOver={() => handleMouseOver(index + 1)}
+                        onMouseLeave={handleMouseLeave}
+                        color={
+                          (hoverValue || currentValue) > index
+                            ? colors.orange
+                            : colors.grey
+                        }
+                        style={{
+                          marginRight: 10,
+                          cursor: "pointer",
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+                <br></br>
+                {reviewResult ? (
+                  <div class="alert alert-info" role="alert">
+                    {reviewResult}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </form>
         </Card.Body>
       </Card>
     </div>

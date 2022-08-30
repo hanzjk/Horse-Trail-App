@@ -246,7 +246,10 @@ export default function AddTrail() {
   };
 
   return (
-    <div className="container" style={{ paddingTop: "100px" }}>
+    <div
+      className="container"
+      style={{ paddingTop: "100px", paddingBottom: "100px" }}
+    >
       <h1 className="h3 mb-3 font-weight-normal">Add Trail</h1>
       <form className="needs-validation" encType="multipart/form-data">
         <div className="row">
