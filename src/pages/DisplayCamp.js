@@ -47,6 +47,7 @@ export default function DisplayCamp() {
   useEffect(() => {
     FireStoreService.getCamp("Q1QXQTNfuoCu7d1IdI7Q")
       .then((response) => {
+        console.log(response.data());
         setCampDetails(response.data());
 
         const website = document.getElementById("website");
@@ -270,34 +271,35 @@ export default function DisplayCamp() {
       "src",
       "https://img.icons8.com/ios/50/000000/wired-network-connection.png"
     );
-
-    for (var i = 0; i < check.length; i++) {
-      if (check[i] === "Restrooms") {
-        restroom.setAttribute(
-          "src",
-          "https://img.icons8.com/ios-filled/50/000000/cottage--v1.png"
-        );
-      } else if (check[i] === "Water") {
-        water.setAttribute(
-          "src",
-          "https://img.icons8.com/ios-filled/50/000000/bottle-of-water.png"
-        );
-      } else if (check[i] === "Corrals") {
-        corrals.setAttribute(
-          "src",
-          "https://img.icons8.com/ios-filled/50/000000/coral.png"
-        );
-      } else if (check[i] === "Restaurant") {
-        restaurant.setAttribute(
-          "src",
-          "https://img.icons8.com/ios-filled/50/000000/restaurant--v1.png"
-        );
-      } else if (check[i] === "Hookup") {
-        hookup.setAttribute(
-          "src",
-          "https://img.icons8.com/ios-filled/50/000000/wired-network-connection.png"
-        );
-      }
+    if (check.Restrooms == true) {
+      restroom.setAttribute(
+        "src",
+        "https://img.icons8.com/ios-filled/50/000000/cottage--v1.png"
+      );
+    }
+    if (check.Water == true) {
+      water.setAttribute(
+        "src",
+        "https://img.icons8.com/ios-filled/50/000000/bottle-of-water.png"
+      );
+    }
+    if (check.Corrals == true) {
+      corrals.setAttribute(
+        "src",
+        "https://img.icons8.com/ios-filled/50/000000/coral.png"
+      );
+    }
+    if (check.Restaurants == true) {
+      restaurant.setAttribute(
+        "src",
+        "https://img.icons8.com/ios-filled/50/000000/restaurant--v1.png"
+      );
+    }
+    if (check.Hookup == true) {
+      hookup.setAttribute(
+        "src",
+        "https://img.icons8.com/ios-filled/50/000000/wired-network-connection.png"
+      );
     }
   }
 
@@ -308,15 +310,8 @@ export default function DisplayCamp() {
     }
 
     var overall = tot / ratings.length;
-    if (overall % 2 == 0) {
-      setRateFilled(overall);
-    } else {
-      if (overall - parseInt(overall) >= 0.5) {
-        setRateFilled(parseInt(overall) + 1);
-      } else {
-        setRateFilled(parseInt(overall));
-      }
-    }
+    const starRate = document.getElementById("starRate");
+    starRate.innerHTML = overall;
   }
 
   return (
@@ -333,19 +328,15 @@ export default function DisplayCamp() {
             </h2>
             <h3 className="text-center">{campDetails.campType}</h3>
             <div style={styles.stars} className="justify-content-center">
-              {stars.map((_, index) => {
-                return (
-                  <FaStar
-                    key={index}
-                    size={24}
-                    color={rateFilled > index ? colors.orange : colors.grey}
-                    style={{
-                      marginRight: 10,
-                      cursor: "pointer",
-                    }}
-                  />
-                );
-              })}
+              <FaStar
+                size={24}
+                style={{
+                  marginRight: 10,
+                  cursor: "pointer",
+                  color: "orange",
+                }}
+              />
+              <div id="starRate"></div>
             </div>
           </Card.Title>
           <div className="row p-3">
