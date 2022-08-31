@@ -1,9 +1,14 @@
 import firebase from "firebase/app";
-import { getStorage, ref } from "firebase/firebase-storage";
+import { getStorage, ref, getDownloadURL } from "firebase/firebase-storage";
 import { db } from "../../firestore";
+import "firebase/storage";
+import "firebase/firestore";
+import "firebase/auth";
 
 // Create a root reference
 const storage = firebase.storage();
+const trailsRef = db.collection("trails");
+
 function addGpxFiles(name, file) {
   return new Promise((resolve, reject) => {
     storage
@@ -141,10 +146,12 @@ function getGpxFiles(name, fileName) {
 }
 
 //get image file as a url to download
-function getTrailImages(name, imageName) {
+function getTrailImageURL(name, imageName) {
   return new Promise((resolve, reject) => {
-    storage
-      .ref(`trails/images/${name}/${imageName}`)
+    const imageRef = firebase
+      .storage()
+      .ref(`trails/images/banners/${name}/${imageName}`);
+    imageRef
       .getDownloadURL()
       .then((url) => {
         resolve(url);
@@ -162,10 +169,10 @@ function getTrail(id) {
       .get()
       .then((trail) => {
         resolve(trail);
-      })
-      .catch((e) => {
+      }).catch((e) => {
         reject(e);
-      });
+
+      })
   });
 }
 
@@ -186,6 +193,7 @@ function addRatings(id, rate) {
   });
 }
 
+
 function getRating(id) {
   return new Promise((resolve, reject) => {
     var query = db.collection("trailsRatings");
@@ -194,12 +202,84 @@ function getRating(id) {
       .get()
       .then((ratings) => {
         resolve(ratings);
+        })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+
+
+
+
+function searchTrails(
+  trailType,
+  season,
+  trail_park_name,
+  tag,
+  bikesAllowed,
+  state,
+  range,
+  inputParkOrTrail
+) {
+  return new Promise((resolve, reject) => {
+    var query = db.collection("trails");
+    query = query.where("miles", ">=", range[0]);
+
+    if (trailType != "Any") {
+      query = query.where("trailType", "==", trailType);
+    }
+    if (state != "Any") {
+      query = query.where("state", "==", state);
+    }
+    if (bikesAllowed != "Any") {
+      query = query.where("bikers", "==", bikesAllowed);
+    }
+    if (season != "Any") {
+      query = query.where(
+        "bestSeasonsCheck.bestSeasons",
+        "array-contains",
+        season
+      );
+    }
+
+    if (trail_park_name != "") {
+      if (inputParkOrTrail == "trail") {
+        query = query.where("trailName", "==", trail_park_name);
+      } else if (inputParkOrTrail == "park") {
+        query = query.where("parkName", "==", trail_park_name);
+      }
+    }
+    if (tag != "") {
+      query = query.where("keywords", "==", tag);
+    }
+    query
+      .get()
+      .then((allTrails) => {
+        resolve(allTrails);
       })
       .catch((e) => {
         reject(e);
       });
   });
 }
+
+//get image file as a url to download
+function getTrailImages(name, imageName) {
+  return new Promise((resolve, reject) => {
+    storage
+      .ref(`trails/images/${name}/${imageName}`)
+      .getDownloadURL()
+      .then((url) => {
+        resolve(url);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
 
 export default {
   addRatings,
@@ -210,5 +290,7 @@ export default {
   getGpxFiles,
   getRating,
   getTrailImages,
+  getTrailImageURL,
   getTrail,
+  searchTrails,
 };

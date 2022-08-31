@@ -16,6 +16,8 @@ const styles = {
 };
 
 export default function DisplayTrail() {
+  const [trailID, setTrailID] = useState(null);
+
   const [trailDetails, setTrailDetails] = useState({});
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
@@ -27,7 +29,7 @@ export default function DisplayTrail() {
 
   const handleClick = (value) => {
     setCurrentValue(value);
-    FireStoreService.addRatings("5lJWqkV3aBbxsunYKIOl", value)
+    FireStoreService.addRatings(trailID, value)
       .then(() => {
         setReviewResult("Review submitted successfully");
       })
@@ -45,8 +47,12 @@ export default function DisplayTrail() {
   };
 
   useEffect(() => {
-    FireStoreService.getTrail("5lJWqkV3aBbxsunYKIOl")
+    var url = document.location.href;
+    var id = url.toString().split("/")[4];
+    setTrailID(id);
+    FireStoreService.getTrail(trailID)
       .then((response) => {
+        console.log(response.data());
         setTrailDetails(response.data());
         const pathBanner = trailDetails.trailName;
         FireStoreService.getTrailImages(
@@ -129,7 +135,7 @@ export default function DisplayTrail() {
         displaySeasons(trailDetails.bestSeasonsCheck.bestSeasons);
         displayTrailHeads(trailDetails.trailHeadCheck.trailHead);
 
-        FireStoreService.getRating("5lJWqkV3aBbxsunYKIOl")
+        FireStoreService.getRating(trailID)
           .then((response) => {
             setRatings(
               response.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -755,7 +761,6 @@ export default function DisplayTrail() {
                         alt="Gallery Image 01"
                         id="imageGal1"
                         className="d-block w-25"
-                        alt="..."
                         style={{
                           height: "auto",
                           margin: "0px auto",
@@ -767,7 +772,6 @@ export default function DisplayTrail() {
                         alt="Gallery Image 02"
                         id="imageGal2"
                         className="d-block w-25"
-                        alt="..."
                         style={{
                           height: "auto",
                           margin: "0px auto",
@@ -779,7 +783,6 @@ export default function DisplayTrail() {
                         alt="Gallery Image 03"
                         id="imageGal3"
                         className="d-block w-25"
-                        alt="..."
                         style={{
                           height: "auto",
                           margin: "0px auto",
