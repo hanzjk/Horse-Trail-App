@@ -12,7 +12,6 @@ import AddTrail from "./pages/AddTrail";
 import AddCamp from "./pages/AddCamp";
 import DisplayTrail from "./pages/DisplayTrail";
 import DisplayCamp from "./pages/DisplayCamp";
-import SearchPage from "./pages/SearchPage";
 import TrailSearchPage from "./pages/TrailSearchPage";
 import CampSearchPage from "./pages/CampSearchPage";
 
@@ -31,8 +30,8 @@ root.render(
         <Route path="/about" exact element={<About />} />
         <Route exact path="/add-trail" element={<AddTrail />} />
         <Route exact path="/add-camp" element={<AddCamp />} />
-        <Route exact path="/display-trail" element={<DisplayTrail />} />
-        <Route exact path="/display-camp" element={<DisplayCamp />} />
+        <Route exact path="/display-trail/:id" element={<DisplayTrail />} />
+        <Route exact path="/display-camp/:id" element={<DisplayCamp />} />
         <Route path="/trails" exact element={<TrailSearchPage />} />
         <Route path="/camps" exact element={<CampSearchPage />} />
       </Routes>

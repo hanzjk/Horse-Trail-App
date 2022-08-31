@@ -401,15 +401,12 @@ function SearchPage() {
 
                   return (
                     <Col xs={12} md={6} lg={4} key={trail.id}>
-                      <Card
-                        key={trail.id}
-                        className="mt-5 ms-3"
-                      >
+                      <Card key={trail.id} className="mt-5 ms-3">
                         <Card.Img variant="top" src="" />
                         <Card.Body>
                           <Card.Title>
                             <a
-                              href={"/trail-info/" + trail.id}
+                              href={"/display-trail/" + trail.id}
                               style={{ textDecoration: "none", color: "black" }}
                             >
                               <h1 className="text-center">{trail.trailName}</h1>

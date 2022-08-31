@@ -69,14 +69,14 @@ function Map(props) {
                 onClick={() => handleActiveMarker(id)}
               >
                 {activeMarker === id ? (
-                  <InfoWindow onCloseClick={() => setActiveMarker(null)} >
+                  <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                     <Card style={{ width: "18rem" }}>
                       <Card.Body>
                         <Card.Text>{parkName}</Card.Text>
 
                         <Card.Title>{campName}</Card.Title>
-                       
-                        <a href={"/camp-info/" + id}>
+
+                        <a href={"/display-camp/" + id}>
                           <Button variant="secondary">View Camp Info</Button>
                         </a>
                       </Card.Body>

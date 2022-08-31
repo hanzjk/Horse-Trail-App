@@ -371,7 +371,7 @@ function SearchPage() {
                           <Card.Body>
                             <Card.Title>
                               <a
-                                href={"/camp-info/" + camp.id}
+                                href={"/display-camp/" + camp.id}
                                 style={{
                                   textDecoration: "none",
                                   color: "black",

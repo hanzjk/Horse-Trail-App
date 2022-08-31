@@ -16,6 +16,8 @@ const styles = {
 };
 
 export default function DisplayCamp() {
+    const [campID, setCampID] = useState(null);
+
   const [campDetails, setCampDetails] = useState({});
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
@@ -26,7 +28,7 @@ export default function DisplayCamp() {
 
   const handleClick = (value) => {
     setCurrentValue(value);
-    FireStoreService.addRatings("Q1QXQTNfuoCu7d1IdI7Q", value)
+    FireStoreService.addRatings(campID, value)
       .then(() => {
         setReviewResult("Review submitted successfully");
       })
@@ -44,7 +46,10 @@ export default function DisplayCamp() {
   };
 
   useEffect(() => {
-    FireStoreService.getCamp("Q1QXQTNfuoCu7d1IdI7Q")
+     var url = document.location.href;
+     var id = url.toString().split("/")[4];
+     setCampID(id);
+    FireStoreService.getCamp(campID)
       .then((response) => {
         console.log(response.data());
         setCampDetails(response.data());
@@ -798,7 +803,6 @@ export default function DisplayCamp() {
                         alt="Gallery Image 01"
                         id="imageGal1"
                         className="d-block w-25"
-                        alt="..."
                         style={{
                           height: "auto",
                           margin: "0px auto",
@@ -810,7 +814,6 @@ export default function DisplayCamp() {
                         alt="Gallery Image 02"
                         id="imageGal2"
                         className="d-block w-25"
-                        alt="..."
                         style={{
                           height: "auto",
                           margin: "0px auto",
@@ -822,7 +825,6 @@ export default function DisplayCamp() {
                         alt="Gallery Image 03"
                         id="imageGal3"
                         className="d-block w-25"
-                        alt="..."
                         style={{
                           height: "auto",
                           margin: "0px auto",

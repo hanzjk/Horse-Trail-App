@@ -17,7 +17,7 @@ function Map(props) {
   }, [props]);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "",
+    googleMapsApiKey: "AIzaSyD4AcqWdeEZSHk-0EfLG_lSWln2Crg1NF8",
   });
 
   const [activeMarker, setActiveMarker] = useState(null);
@@ -29,18 +29,7 @@ function Map(props) {
     setActiveMarker(marker);
   };
 
-  // const handleOnLoad = (map) => {
-  //   console.log(map);
-  //   const google = window.google;
-
-  //   const bounds = new google.maps.LatLngBounds();
-  //   markers.map((m) => {
-  //     var myLatLng = new google.maps.LatLng(m.position.lat, m.position.lng);
-  //     console.log(m.position);
-  //     bounds.extend(m.position);
-  //   });
-  //   map.fitBounds(bounds);
-  // };
+ 
 
   if (!isLoaded) return <div>Loading...</div>;
   if (markers.length == 0 || trails.length == 0) return <div>Loading...</div>;
@@ -56,7 +45,7 @@ function Map(props) {
             bounds.extend({ lat: lat,lng:lng});
           });
           map.fitBounds(bounds);
-          map.setZoom(10);
+          map.setZoom(1);
         }}
         onClick={() => setActiveMarker(null)}
         mapContainerStyle={{ width: "100%", height: "100vh" }}
@@ -79,7 +68,6 @@ function Map(props) {
                 label={trailName[0]}
                 position={LatLng}
                 onClick={() => handleActiveMarker(id)}
-                
               >
                 {activeMarker === id ? (
                   <InfoWindow onCloseClick={() => setActiveMarker(null)}>
@@ -91,7 +79,7 @@ function Map(props) {
                         <p>
                           {miles} Miles | {trailType}
                         </p>
-                        <a href={"/trail-info/" + id}>
+                        <a href={"/display-trail/" + id}>
                           <Button variant="secondary">View Trail Info</Button>
                         </a>
                       </Card.Body>
