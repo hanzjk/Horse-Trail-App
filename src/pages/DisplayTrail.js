@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import FireStoreService from "../utils/services/trails/FireStoreService";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 
 const colors = {
@@ -26,7 +26,11 @@ export default function DisplayTrail() {
   const [reviewResult, setReviewResult] = useState("");
 
   const [ratings, setRatings] = useState([]);
-
+    
+  function addCheckIn(e) {
+    e.preventDefault();
+    alert("S");
+  }
   const handleClick = (value) => {
     setCurrentValue(value);
     FireStoreService.addRatings(trailID, value)
@@ -821,7 +825,10 @@ export default function DisplayTrail() {
           <br></br>
           <form className="needs-validation">
             <div className="row">
-              <div className="form-radio" style={{ marginBottom: "15px" }}>
+              <div
+                className="form-radio col-md-7"
+                style={{ marginBottom: "15px" }}
+              >
                 <label style={{ marginBottom: "5px" }}>
                   <h4>Rate the Trail</h4>(submit the rate by clicking the
                   required stars)
@@ -854,6 +861,9 @@ export default function DisplayTrail() {
                     {reviewResult}
                   </div>
                 ) : null}
+              </div>
+              <div className="col-md-5">
+                <button className="btn btn-primary" onClick={addCheckIn}> Check In</button>
               </div>
             </div>
           </form>

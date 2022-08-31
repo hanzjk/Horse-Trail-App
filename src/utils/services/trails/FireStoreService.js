@@ -280,6 +280,24 @@ function getTrailImages(name, imageName) {
   });
 }
 
+function addCheckins(uid, trailID) {
+  return new Promise((resolve, reject) => {
+    const data = {
+      uID: uid,
+      trailID: trailID,
+    };
+    db.collection("trailCheckIns")
+      .add(data)
+      .then((docRef) => {
+        resolve(docRef);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
+
 
 export default {
   addRatings,
@@ -293,4 +311,5 @@ export default {
   getTrailImageURL,
   getTrail,
   searchTrails,
+  addCheckins,
 };
