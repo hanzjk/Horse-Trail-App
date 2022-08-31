@@ -23,7 +23,6 @@ export default function DisplayCamp() {
 
   const [reviewResult, setReviewResult] = useState("");
   const [ratings, setRatings] = useState([]);
-  const [rateFilled, setRateFilled] = useState(0);
 
   const handleClick = (value) => {
     setCurrentValue(value);
@@ -311,7 +310,7 @@ export default function DisplayCamp() {
 
     var overall = tot / ratings.length;
     const starRate = document.getElementById("starRate");
-    starRate.innerHTML = overall;
+    isNaN(overall) ? (starRate.innerHTML = 0) : (starRate.innerHTML = overall);
   }
 
   return (

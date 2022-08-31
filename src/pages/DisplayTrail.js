@@ -24,11 +24,10 @@ export default function DisplayTrail() {
   const [reviewResult, setReviewResult] = useState("");
 
   const [ratings, setRatings] = useState([]);
-  const [rateFilled, setRateFilled] = useState(0);
 
   const handleClick = (value) => {
     setCurrentValue(value);
-    FireStoreService.addRatings("tTXVdpQDIEaipok5TJPV", value)
+    FireStoreService.addRatings("5lJWqkV3aBbxsunYKIOl", value)
       .then(() => {
         setReviewResult("Review submitted successfully");
       })
@@ -46,9 +45,8 @@ export default function DisplayTrail() {
   };
 
   useEffect(() => {
-    FireStoreService.getTrail("tTXVdpQDIEaipok5TJPV")
+    FireStoreService.getTrail("5lJWqkV3aBbxsunYKIOl")
       .then((response) => {
-        console.log(response.data());
         setTrailDetails(response.data());
         const pathBanner = trailDetails.trailName;
         FireStoreService.getTrailImages(
@@ -110,6 +108,19 @@ export default function DisplayTrail() {
           .catch((e) => {
             console.log(e);
           });
+
+        FireStoreService.getTrailImages(
+          "trailMap/" + trailDetails.trailName,
+          trailDetails.trailMapName
+        )
+          .then((trailMapImg) => {
+            const trailMapImage = document.getElementById("trailMapImage");
+            trailMapImage.setAttribute("src", trailMapImg);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+
         displayTrailUsers("hikers", trailDetails.hikers);
         displayTrailUsers("dogs", trailDetails.dogs);
         displayTrailUsers("bikers", trailDetails.bikers);
@@ -118,7 +129,7 @@ export default function DisplayTrail() {
         displaySeasons(trailDetails.bestSeasonsCheck.bestSeasons);
         displayTrailHeads(trailDetails.trailHeadCheck.trailHead);
 
-        FireStoreService.getRating("tTXVdpQDIEaipok5TJPV")
+        FireStoreService.getRating("5lJWqkV3aBbxsunYKIOl")
           .then((response) => {
             setRatings(
               response.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -128,6 +139,8 @@ export default function DisplayTrail() {
           .catch((e) => {
             console.log(e);
           });
+        const trailMapLink = document.getElementById("trailMapLink");
+        trailMapLink.setAttribute("href", trailDetails.trailMapLink);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -313,15 +326,8 @@ export default function DisplayTrail() {
     }
 
     var overall = tot / ratings.length;
-    if (overall % 2 == 0) {
-      setRateFilled(overall);
-    } else {
-      if (overall - parseInt(overall) >= 0.5) {
-        setRateFilled(parseInt(overall) + 1);
-      } else {
-        setRateFilled(parseInt(overall));
-      }
-    }
+    const starRate = document.getElementById("starRate");
+    isNaN(overall) ? (starRate.innerHTML = 0) : (starRate.innerHTML = overall);
   }
 
   return (
@@ -336,19 +342,15 @@ export default function DisplayTrail() {
             <h2 className="text-center">{trailDetails.parkName}</h2>
             <h3 className="text-center">{trailDetails.trailType}</h3>
             <div style={styles.stars} className="justify-content-center">
-              {stars.map((_, index) => {
-                return (
-                  <FaStar
-                    key={index}
-                    size={24}
-                    color={rateFilled > index ? colors.orange : colors.grey}
-                    style={{
-                      marginRight: 10,
-                      cursor: "pointer",
-                    }}
-                  />
-                );
-              })}
+              <FaStar
+                size={24}
+                style={{
+                  marginRight: 10,
+                  cursor: "pointer",
+                  color: "orange",
+                }}
+              />
+              <div id="starRate"></div>
             </div>
           </Card.Title>
           <div className="row p-3">
@@ -607,16 +609,40 @@ export default function DisplayTrail() {
                       borderRadius: "5px",
                     }}
                   >
-                    Keywords
+                    Keywords/Trail Tags
                   </Card.Title>
                   <div>{trailDetails.keywords}</div>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col md-3">
+              <Card style={{ border: "none" }}>
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      backgroundColor: "#101522",
+                      color: "white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Trail Map Link
+                  </Card.Title>
+                  <div>
+                    <a
+                      id="trailMapLink"
+                      target="_blank"
+                      style={{ textDecoration: "none" }}
+                    >
+                      Click Here
+                    </a>
+                  </div>
                 </Card.Body>
               </Card>
             </div>
           </div>
           <br></br>
           <div className="row text-center">
-            <div className="col md-6">
+            <div className="col md-4">
               <Card style={{ border: "none" }}>
                 <Card.Body>
                   <Card.Title
@@ -628,10 +654,20 @@ export default function DisplayTrail() {
                   >
                     Trail Map
                   </Card.Title>
+                  <img
+                    alt="Trail map Image"
+                    id="trailMapImage"
+                    style={{
+                      display: "block",
+                      width: "20%",
+                      height: "auto",
+                      margin: "0px auto",
+                    }}
+                  ></img>
                 </Card.Body>
               </Card>
             </div>
-            <div className="col md-6">
+            <div className="col md-4">
               <Card style={{ border: "none" }}>
                 <Card.Body>
                   <Card.Title
@@ -653,6 +689,22 @@ export default function DisplayTrail() {
                       margin: "0px auto",
                     }}
                   ></img>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col md-4">
+              <Card style={{ border: "none" }}>
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      backgroundColor: "#101522",
+                      color: "white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Nearby Horse Camping
+                  </Card.Title>
+                  <div>{trailDetails.nearByHorseCamp}</div>
                 </Card.Body>
               </Card>
             </div>
