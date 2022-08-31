@@ -73,10 +73,10 @@ export const Section = styled.section`
 `;
 
 export const BodyContent = styled.body`
-   padding: ${({ padding }) => (padding ? padding : "10px 0 50px 0")};
-   margin: ${({ margin }) => (margin ? margin : "10px 10px 50px 10px")};
+   padding: ${({ padding }) => (padding ? padding : "100px 0 50px 0")};
+   margin: ${({ margin }) => (margin ? margin : "10px 10px 100px 10px")};
   //margin: ${({ margin }) => (margin ? margin : "0px 0 0 0")};
-  background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
+  //background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
   // position: ${({ position }) => (position ? position : "")};
   // width: ${({ width }) => (width ? width : "auto")};
   // min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
@@ -126,7 +126,7 @@ export const ColumnField = styled.div`
 `;
 
 export const Button = styled.button`
-  border-radius: 4px;
+  borderRadius: 4px;
   background: none;
   white-space: nowrap;
   padding: 10px 20px;

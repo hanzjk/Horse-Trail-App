@@ -9,7 +9,7 @@ function About() {
     <>
       {/* Add Body tag before each component */}
       <BodyContent>
-        <p>about</p>
+        <p>aboccut</p>
       </BodyContent>
     </>
   );

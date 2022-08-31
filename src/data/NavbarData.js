@@ -8,7 +8,7 @@ export const data = [
     text: "Trails",
   },
   {
-    to: "/camping",
+    to: "/camps",
     text: "Camping",
   },
   {

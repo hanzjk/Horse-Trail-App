@@ -1,9 +1,14 @@
 import firebase from "firebase/app";
-import { getStorage, ref } from "firebase/firebase-storage";
+import { getStorage, ref, getDownloadURL } from "firebase/firebase-storage";
 import { db } from "../../firestore";
+import "firebase/storage";
+import "firebase/firestore";
+import "firebase/auth";
 
 // Create a root reference
 const storage = firebase.storage();
+const trailsRef = db.collection("trails");
+
 function addGpxFiles(name, file) {
   return new Promise((resolve, reject) => {
     storage
@@ -143,8 +148,10 @@ function getGpxFiles(name, fileName) {
 //get image file as a url to download
 function getTrailImages(name, imageName) {
   return new Promise((resolve, reject) => {
-    storage
-      .ref(`trails/images/${name}/${imageName}`)
+    const imageRef = firebase
+      .storage()
+      .ref(`trails/images/banners/${name}/${imageName}`);
+    imageRef
       .getDownloadURL()
       .then((url) => {
         resolve(url);
@@ -162,10 +169,10 @@ function getTrail(id) {
       .get()
       .then((trail) => {
         resolve(trail);
-      })
-      .catch((e) => {
+      }).catch((e) => {
         reject(e);
-      });
+
+      })
   });
 }
 
@@ -194,7 +201,7 @@ function getRating(id) {
       .get()
       .then((ratings) => {
         resolve(ratings);
-      })
+        })
       .catch((e) => {
         reject(e);
       });

@@ -117,6 +117,69 @@ function getAllCamps() {
   });
 }
 
+function searchCamps(
+  campType,
+  season,
+  camp_park_name,
+  state,
+  inputParkOrCamp,
+  inputRVHookUps,
+  inputCorrals
+) {
+  return new Promise((resolve, reject) => {
+    var query = db.collection("camps");
+    //  query = query.where("miles", ">=", range[0]).where("miles", "<=", range[1]);
+
+    if (campType != "Any") {
+      query = query.where("campType", "==", campType);
+    }
+    if (state != "Any") {
+      query = query.where("state", "==", state);
+    }
+    if (inputRVHookUps != "Any") {
+      if (inputRVHookUps == "Required") {
+        query = query.where("amenitiesCheck.amenties.Hookup", "==", true);
+      } else if (inputRVHookUps == "Not Required") {
+        query = query.where("amenitiesCheck.amenties.Hookup", "==", false);
+      }
+    }
+
+    if (inputCorrals != "Any") {
+      if (inputCorrals == "Required") {
+        query = query.where("amenitiesCheck.amenties.Corrals", "==", true);
+      } else if (inputCorrals == "Not Required") {
+        query = query.where("amenitiesCheck.amenties.Corrals", "==", false);
+      }
+    }
+
+   
+    if (season != "Any") {
+      query = query.where(
+        "bestSeasonsCheck.bestSeasons",
+        "array-contains",
+        season
+      );
+    }
+
+    if (camp_park_name != "") {
+      if (inputParkOrCamp == "park") {
+        query = query.where("parkName", "==", camp_park_name);
+      } else if (inputParkOrCamp == "camp") {
+        query = query.where("campName", "==", camp_park_name);
+      }
+    }
+
+    query
+      .get()
+      .then((allCamps) => {
+        resolve(allCamps);
+      })
+      .catch((e) => {
+        reject(e);
+      });
+  });
+}
+
 //get image file as a url to download
 function getCampImages(name, imageName) {
   return new Promise((resolve, reject) => {
@@ -186,4 +249,5 @@ export default {
   getCamp,
   getCampImages,
   getRating,
+
 };
