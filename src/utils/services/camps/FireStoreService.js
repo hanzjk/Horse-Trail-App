@@ -138,9 +138,9 @@ function searchCamps(
     }
     if (inputRVHookUps != "Any") {
       if (inputRVHookUps == "Required") {
-        query = query.where("amenitiesCheck.amenties.Hookup", "==", true);
+        query = query.where("amenitiesCheck.amenities.Hookup", "==", true);
       } else if (inputRVHookUps == "Not Required") {
-        query = query.where("amenitiesCheck.amenties.Hookup", "==", false);
+        query = query.where("amenitiesCheck.amenities.Hookup", "==", false);
       }
     }
 
