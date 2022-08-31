@@ -60,9 +60,11 @@ function addTrail(
   state,
   trailHeadCheck,
   trailMap,
+  trailMapName,
   trailName,
   trailNotes,
-  trailType
+  trailType,
+  userId
 ) {
   return new Promise((resolve, reject) => {
     const data = {
@@ -93,9 +95,11 @@ function addTrail(
       state: state,
       trailHeadCheck: trailHeadCheck,
       trailMap: trailMap,
+      trailMapName: trailMapName,
       trailName: trailName,
       trailNotes: trailNotes,
       trailType: trailType,
+      userId: userId,
     };
     db.collection("trails")
       .add(data)

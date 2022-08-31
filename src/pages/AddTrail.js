@@ -3,6 +3,7 @@ import { BodyContent } from "../globalStyles";
 import FireStoreService from "../utils/services/trails/FireStoreService";
 
 export default function AddTrail() {
+  const userId = "nwdjBJLDJLNW";
   const [atvOrOffroad, setAtvOrOffroad] = useState("Yes");
   const [bikers, setBikers] = useState("Yes");
   const [city, setCity] = useState("");
@@ -42,6 +43,7 @@ export default function AddTrail() {
   const [gpx, setGpx] = useState("");
   const [banner, setBanner] = useState("");
   const [parkingImage, setParkingImage] = useState("");
+  const [trailMapImage, setTrailMapImage] = useState("");
 
   function onSubmit(e) {
     e.preventDefault();
@@ -77,94 +79,121 @@ export default function AddTrail() {
                 parkingImage.type === "image/jpg" ||
                 parkingImage.type === "image/jpeg"
               ) {
-                FireStoreService.addTrailImages("banners/" + trailName, banner)
-                  .then(() => {
-                    FireStoreService.addGpxFiles(trailName, gpx)
-                      .then(() => {
-                        FireStoreService.addTrailImages(
-                          "gallery/" + trailName,
-                          imageGal1
-                        )
-                          .then(() => {
-                            FireStoreService.addTrailImages(
-                              "gallery/" + trailName,
-                              imageGal2
-                            )
-                              .then(() => {
-                                FireStoreService.addTrailImages(
-                                  "gallery/" + trailName,
-                                  imageGal3
-                                )
-                                  .then(() => {
-                                    FireStoreService.addTrailImages(
-                                      "parking/" + trailName,
-                                      parkingImage
-                                    )
-                                      .then(() => {
-                                        FireStoreService.addTrail(
-                                          atvOrOffroad,
-                                          banner.name,
-                                          bestSeasonsCheck,
-                                          bikers,
-                                          city,
-                                          country,
-                                          description,
-                                          dogs,
-                                          elevationGain,
-                                          gpx.name,
-                                          hikers,
-                                          imageGal1.name,
-                                          imageGal2.name,
-                                          imageGal3.name,
-                                          keywords,
-                                          longitude,
-                                          latitude,
-                                          miles,
-                                          obstaclesCheck,
-                                          parkName,
-                                          parkingImage.name,
-                                          parkingNotes,
-                                          parkingSpots,
-                                          restrictions,
-                                          state,
-                                          trailHeadCheck,
-                                          trailMap,
-                                          trailName,
-                                          trailNotes,
-                                          trailType
-                                        )
-                                          .then(() => {
-                                            alert("Done");
-                                          })
-                                          .catch((e) => {
-                                            setError(
-                                              "Error occured: " + e.message
-                                            );
-                                          });
-                                      })
-                                      .catch((e) => {
-                                        setError("Error occured: " + e.message);
-                                      });
-                                  })
-                                  .catch((e) => {
-                                    setError("Error occured: " + e.message);
-                                  });
-                              })
-                              .catch((e) => {
-                                setError("Error occured: " + e.message);
-                              });
-                          })
-                          .catch((e) => {
-                            setError("Error occured: " + e.message);
-                          });
-                      })
-                      .catch((e) => {
-                        setError("Error occured: " + e.message);
-                      });
-                  })
-                  .catch((e) => {
-                    setError("Error occured: " + e.message);
-                  });
+                if (
+                  trailMapImage.type === "image/png" ||
+                  trailMapImage.type === "image/jpg" ||
+                  trailMapImage.type === "image/jpeg"
+                ) {
+                  FireStoreService.addTrailImages(
+                    "banners/" + trailName,
+                    banner
+                  )
+                    .then(() => {
+                      FireStoreService.addGpxFiles(trailName, gpx)
+                        .then(() => {
+                          FireStoreService.addTrailImages(
+                            "gallery/" + trailName,
+                            imageGal1
+                          )
+                            .then(() => {
+                              FireStoreService.addTrailImages(
+                                "gallery/" + trailName,
+                                imageGal2
+                              )
+                                .then(() => {
+                                  FireStoreService.addTrailImages(
+                                    "gallery/" + trailName,
+                                    imageGal3
+                                  )
+                                    .then(() => {
+                                      FireStoreService.addTrailImages(
+                                        "parking/" + trailName,
+                                        parkingImage
+                                      )
+                                        .then(() => {
+                                          FireStoreService.addTrailImages(
+                                            "trailMap/" + trailName,
+                                            trailMapImage
+                                          )
+                                            .then(() => {
+                                              FireStoreService.addTrail(
+                                                atvOrOffroad,
+                                                banner.name,
+                                                bestSeasonsCheck,
+                                                bikers,
+                                                city,
+                                                country,
+                                                description,
+                                                dogs,
+                                                elevationGain,
+                                                gpx.name,
+                                                hikers,
+                                                imageGal1.name,
+                                                imageGal2.name,
+                                                imageGal3.name,
+                                                keywords,
+                                                longitude,
+                                                latitude,
+                                                miles,
+                                                obstaclesCheck,
+                                                parkName,
+                                                parkingImage.name,
+                                                parkingNotes,
+                                                parkingSpots,
+                                                restrictions,
+                                                state,
+                                                trailHeadCheck,
+                                                trailMap,
+                                                trailMapImage.name,
+                                                trailName,
+                                                trailNotes,
+                                                trailType,
+                                                userId
+                                              )
+                                                .then(() => {
+                                                  alert("Done");
+                                                })
+                                                .catch((e) => {
+                                                  setError(
+                                                    "Error occured: " +
+                                                      e.message
+                                                  );
+                                                });
+                                            })
+                                            .catch((e) => {
+                                              setError(
+                                                "Error occured: " + e.message
+                                              );
+                                            });
+                                        })
+                                        .catch((e) => {
+                                          setError(
+                                            "Error occured: " + e.message
+                                          );
+                                        });
+                                    })
+                                    .catch((e) => {
+                                      setError("Error occured: " + e.message);
+                                    });
+                                })
+                                .catch((e) => {
+                                  setError("Error occured: " + e.message);
+                                });
+                            })
+                            .catch((e) => {
+                              setError("Error occured: " + e.message);
+                            });
+                        })
+                        .catch((e) => {
+                          setError("Error occured: " + e.message);
+                        });
+                    })
+                    .catch((e) => {
+                      setError("Error occured: " + e.message);
+                    });
+                } else {
+                  setError("Uploaded image format is invalid!");
+                }
               } else {
                 setError("Uploaded image format is invalid!");
               }
@@ -499,7 +528,7 @@ export default function AddTrail() {
           </div>
         </div>
         <div className="row">
-          <div className="col md-6">
+          <div className="col md-4">
             <div className="form-group" style={{ marginBottom: "15px" }}>
               <label style={{ marginBottom: "5px" }}>Elevation Gain</label>
               <input
@@ -514,9 +543,9 @@ export default function AddTrail() {
               ></input>
             </div>
           </div>
-          <div className="col md-6">
+          <div className="col md-4">
             <div className="form-group" style={{ marginBottom: "15px" }}>
-              <label style={{ marginBottom: "5px" }}>Trail Map</label>
+              <label style={{ marginBottom: "5px" }}>Trail Map Link</label>
               <input
                 required={true}
                 type="text"
@@ -527,6 +556,22 @@ export default function AddTrail() {
                   setTrailMap(e.target.value);
                 }}
               ></input>
+            </div>
+          </div>
+          <div className="col md-4">
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>Trail Map Image</label>
+              <input
+                type="file"
+                className="form-control"
+                name="trailMapImage"
+                onChange={(e) => {
+                  setTrailMapImage(e.target.files[0]);
+                }}
+              ></input>
+              <span style={{ fontSize: "12px" }}>
+                Only jpeg, jpg and png files are allowed
+              </span>
             </div>
           </div>
         </div>
