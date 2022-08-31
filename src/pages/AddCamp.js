@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FireStoreService from "../utils/services/camps/FireStoreService";
 
 export default function AddTrail() {
+  const [campDescription, setCampDescription] = useState("");
   const [campName, setCampName] = useState("");
   const [campNotes, setCampNotes] = useState("");
   const [campType, setCampType] = useState("Any Camp Type");
@@ -16,7 +17,6 @@ export default function AddTrail() {
   const [keywords, setKeywords] = useState("");
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
-  const [nearByPlaces, setNearByPlaces] = useState("");
   const [paperworkRequired, setPaperworkRequired] = useState("Yes");
   const [parkName, setParkName] = useState("");
   const [petPolicy, setPetPolicy] = useState("");
@@ -25,6 +25,7 @@ export default function AddTrail() {
   const [reservationDescription, setReservationDescription] = useState("");
   const [reservationEmail, setReservationEmail] = useState("");
   const [reservationLink, setReservationLink] = useState("");
+  const [resOrPricing, setResOrPricing] = useState("");
   const [restrictions, setRestrictions] = useState("");
   const [roadToCamp, setRoadToCamp] = useState("Paved Road to Camp");
   const [state, setState] = useState("Alabama");
@@ -35,7 +36,7 @@ export default function AddTrail() {
   const [campSiteTypesCheck, setCampSiteTypes] = useState({
     campSiteTypes: [],
   });
-  const [amenitiesCheck, setAmenities] = useState({
+  const [amenitiesCheckTemp, setAmenities] = useState({
     amenities: [],
   });
   const [bestSeasonsCheck, setBestSeasons] = useState({
@@ -46,6 +47,7 @@ export default function AddTrail() {
   const [imageGal2, setImageGal2] = useState("");
   const [imageGal3, setImageGal3] = useState("");
   const [banner, setBanner] = useState("");
+  const [parkingImage, setParkingImage] = useState("");
 
   const handleCheckChangeOne = (e) => {
     // Destructuring
@@ -70,7 +72,7 @@ export default function AddTrail() {
   const handleCheckChangeTwo = (e) => {
     // Destructuring
     const { value, checked } = e.target;
-    const { amenities } = amenitiesCheck;
+    const { amenities } = amenitiesCheckTemp;
 
     // Case 1 : The user checks the box
     if (checked) {
@@ -117,104 +119,176 @@ export default function AddTrail() {
       banner.type === "image/webp"
     ) {
       if (
-        imageGal1.type === "image/png" ||
-        imageGal1.type === "image/jpg" ||
-        imageGal1.type === "image/jpeg"
+        parkingImage.type === "image/png" ||
+        parkingImage.type === "image/jpg" ||
+        parkingImage.type === "image/jpeg"
       ) {
         if (
-          imageGal2.type === "image/png" ||
-          imageGal2.type === "image/jpg" ||
-          imageGal2.type === "image/jpeg"
+          imageGal1.type === "image/png" ||
+          imageGal1.type === "image/jpg" ||
+          imageGal1.type === "image/jpeg"
         ) {
           if (
-            imageGal3.type === "image/png" ||
-            imageGal3.type === "image/jpg" ||
-            imageGal3.type === "image/jpeg"
+            imageGal2.type === "image/png" ||
+            imageGal2.type === "image/jpg" ||
+            imageGal2.type === "image/jpeg"
           ) {
-            FireStoreService.addCampImages("banners/" + campName, banner)
-              .then(() => {
-                FireStoreService.addCampImages("gallery/" + campName, imageGal1)
-                  .then(() => {
-                    FireStoreService.addCampImages(
-                      "gallery/" + campName,
-                      imageGal2
-                    )
-                      .then(() => {
-                        FireStoreService.addCampImages(
-                          "gallery/" + campName,
-                          imageGal3
-                        )
-                          .then(() => {
-                            FireStoreService.addCamp(
-                              amenitiesCheck,
-                              banner.name,
-                              bestSeasonsCheck,
-                              campName,
-                              campNotes,
-                              campSiteTypesCheck,
-                              campType,
-                              city,
-                              costPerNight,
-                              description,
-                              email,
-                              facebook,
-                              horseSite,
-                              imageGal1.name,
-                              imageGal2.name,
-                              imageGal3.name,
-                              instagram,
-                              keywords,
-                              longitude,
-                              latitude,
-                              nearByPlaces,
-                              paperworkRequired,
-                              parkName,
-                              petPolicy,
-                              phone,
-                              reservation,
-                              reservationCall,
-                              reservationDescription,
-                              reservationEmail,
-                              reservationLink,
-                              restrictions,
-                              roadToCamp,
-                              state,
-                              twitter,
-                              website
-                            )
-                              .then(() => {
-                                alert("Done");
-                              })
-                              .catch((e) => {
-                                setError("Error occured: " + e.message);
-                              });
-                          })
-                          .catch((e) => {
-                            setError("Error occured: " + e.message);
-                          });
-                      })
-                      .catch((e) => {
-                        setError("Error occured: " + e.message);
-                      });
-                  })
-                  .catch((e) => {
-                    setError("Error occured: " + e.message);
-                  });
-              })
-              .catch((e) => {
-                setError("Error occured: " + e.message);
-              });
+            if (
+              imageGal3.type === "image/png" ||
+              imageGal3.type === "image/jpg" ||
+              imageGal3.type === "image/jpeg"
+            ) {
+              FireStoreService.addCampImages("banners/" + campName, banner)
+                .then(() => {
+                  FireStoreService.addCampImages(
+                    "parking/" + campName,
+                    parkingImage
+                  )
+                    .then(() => {
+                      FireStoreService.addCampImages(
+                        "gallery/" + campName,
+                        imageGal1
+                      )
+                        .then(() => {
+                          FireStoreService.addCampImages(
+                            "gallery/" + campName,
+                            imageGal2
+                          )
+                            .then(() => {
+                              FireStoreService.addCampImages(
+                                "gallery/" + campName,
+                                imageGal3
+                              )
+                                .then(() => {
+                                  const tempObj = {};
+                                  let tempArr = amenitiesCheckTemp.amenities;
+                                  tempObj.Corrals = false;
+                                  tempObj.Water = false;
+                                  tempObj.Restrooms = false;
+                                  tempObj.Restaurants = false;
+                                  tempObj.Hookup = false;
+                                  tempObj.None = false;
+
+                                  for (var i = 0; i < tempArr.length; i++) {
+                                    if (
+                                      amenitiesCheckTemp.amenities[i] ===
+                                      "Corrals"
+                                    ) {
+                                      tempObj.Corrals = true;
+                                    } else if (
+                                      amenitiesCheckTemp.amenities[i] ===
+                                      "Water"
+                                    ) {
+                                      tempObj.Water = true;
+                                    } else if (
+                                      amenitiesCheckTemp.amenities[i] ===
+                                      "Restrooms"
+                                    ) {
+                                      tempObj.Restrooms = true;
+                                    } else if (
+                                      amenitiesCheckTemp.amenities[i] ===
+                                      "Restaurants"
+                                    ) {
+                                      tempObj.Restaurants = true;
+                                    } else if (
+                                      amenitiesCheckTemp.amenities[i] ===
+                                      "Hookup"
+                                    ) {
+                                      tempObj.Hookup = true;
+                                    } else if (
+                                      amenitiesCheckTemp.amenities[i] === "None"
+                                    ) {
+                                      tempObj.None = true;
+                                    }
+                                  }
+                                  const amenitiesCheck = {};
+                                  amenitiesCheck.amenities = tempObj;
+                                  console.log(tempObj);
+                                  FireStoreService.addCamp(
+                                    amenitiesCheck,
+                                    banner.name,
+                                    bestSeasonsCheck,
+                                    campDescription,
+                                    campName,
+                                    campNotes,
+                                    campSiteTypesCheck,
+                                    campType,
+                                    city,
+                                    costPerNight,
+                                    description,
+                                    email,
+                                    facebook,
+                                    horseSite,
+                                    imageGal1.name,
+                                    imageGal2.name,
+                                    imageGal3.name,
+                                    instagram,
+                                    keywords,
+                                    longitude,
+                                    latitude,
+                                    paperworkRequired,
+                                    parkName,
+                                    parkingImage.name,
+                                    petPolicy,
+                                    phone,
+                                    reservation,
+                                    reservationCall,
+                                    reservationDescription,
+                                    reservationEmail,
+                                    reservationLink,
+                                    resOrPricing,
+                                    restrictions,
+                                    roadToCamp,
+                                    state,
+                                    twitter,
+                                    website
+                                  )
+                                    .then(() => {
+                                      alert("Done");
+                                    })
+                                    .catch((e) => {
+                                      setError("Error occured: " + e.message);
+                                      console.log(e);
+                                    });
+                                })
+                                .catch((e) => {
+                                  setError("Error occured!");
+                                  console.log(e);
+                                });
+                            })
+                            .catch((e) => {
+                              setError("Error occured!");
+                              console.log(e);
+                            });
+                        })
+                        .catch((e) => {
+                          setError("Error occured!");
+                          console.log(e);
+                        });
+                    })
+                    .catch((e) => {
+                      setError("Error occured!");
+                      console.log(e);
+                    });
+                })
+                .catch((e) => {
+                  setError("Error occured!");
+                  console.log(e);
+                });
+            } else {
+              setError("Uploaded gallery image format is invalid!");
+            }
           } else {
-            setError("Uploaded image format is invalid!");
+            setError("Uploaded gallery image format is invalid!");
           }
         } else {
-          setError("Uploaded image format is invalid!");
+          setError("Uploaded gallery image format is invalid!");
         }
       } else {
-        setError("Uploaded image format is invalid!");
+        setError("Uploaded parking image format is invalid!");
       }
     } else {
-      setError("Uploaded image format is invalid!");
+      setError("Uploaded banner image format is invalid!");
     }
   }
 
@@ -765,10 +839,10 @@ export default function AddTrail() {
                   type="checkbox"
                   className="form-check-input"
                   name="amenities"
-                  value="Restaurant"
+                  value="Restaurants"
                   onChange={handleCheckChangeTwo}
                 />
-                &nbsp;Restaurant
+                &nbsp;Restaurants
               </label>
             </div>
             <div className="col md-2">
@@ -868,23 +942,6 @@ export default function AddTrail() {
           </div>
           <div className="col md-3">
             <div className="form-group" style={{ marginBottom: "15px" }}>
-              <label style={{ marginBottom: "5px" }}>
-                Nearby Places to Visit
-              </label>
-              <input
-                required={true}
-                type="text"
-                className="form-control"
-                name="nearbyPlaces"
-                placeholder="Enter the Nearby Places to Visit"
-                onChange={(e) => {
-                  setNearByPlaces(e.target.value);
-                }}
-              ></input>
-            </div>
-          </div>
-          <div className="col md-6">
-            <div className="form-group" style={{ marginBottom: "15px" }}>
               <label style={{ marginBottom: "5px" }}>Main Banner Photo</label>
               <input
                 required={true}
@@ -897,6 +954,23 @@ export default function AddTrail() {
               ></input>
               <span style={{ fontSize: "12px" }}>
                 Only jpeg, jpg, bmp, png and webp files are allowed
+              </span>
+            </div>
+          </div>
+          <div className="col md-3">
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>Parking Image</label>
+              <input
+                required={true}
+                type="file"
+                className="form-control"
+                name="parkingImage"
+                onChange={(e) => {
+                  setParkingImage(e.target.files[0]);
+                }}
+              ></input>
+              <span style={{ fontSize: "12px" }}>
+                Only jpeg, jpg and png files are allowed
               </span>
             </div>
           </div>
@@ -954,18 +1028,54 @@ export default function AddTrail() {
             </div>
           </div>
         </div>
-        <div className="form-group" style={{ marginBottom: "15px" }}>
-          <label style={{ marginBottom: "5px" }}>Keywords</label>
-          <input
-            required={true}
-            type="text"
-            className="form-control"
-            name="keywords"
-            placeholder="Keywords"
-            onChange={(e) => {
-              setKeywords(e.target.files[0]);
-            }}
-          ></input>
+        <div className="row">
+          <div className="col md-4">
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>
+                Reservation and Pricing
+              </label>
+              <input
+                required={true}
+                type="text"
+                className="form-control"
+                name="resOrPricing"
+                placeholder="Reservation or Pricing"
+                onChange={(e) => {
+                  setResOrPricing(e.target.value);
+                }}
+              ></input>
+            </div>
+          </div>
+          <div className="col md-4">
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>Camp Description</label>
+              <input
+                required={true}
+                type="text"
+                className="form-control"
+                name="campDescription"
+                placeholder="Camp Description"
+                onChange={(e) => {
+                  setCampDescription(e.target.value);
+                }}
+              ></input>
+            </div>
+          </div>
+          <div className="col md-4">
+            <div className="form-group" style={{ marginBottom: "15px" }}>
+              <label style={{ marginBottom: "5px" }}>Keywords</label>
+              <input
+                required={true}
+                type="text"
+                className="form-control"
+                name="keywords"
+                placeholder="Keywords"
+                onChange={(e) => {
+                  setKeywords(e.target.value);
+                }}
+              ></input>
+            </div>
+          </div>
         </div>
         <div className="form-group" style={{ marginBottom: "15px" }}>
           <label style={{ marginBottom: "5px" }}>
@@ -975,13 +1085,13 @@ export default function AddTrail() {
             className="form-control"
             name="description"
             onChange={(e) => {
-              setDescription(e.target.files[0]);
+              setDescription(e.target.value);
             }}
           ></textarea>
           <br></br>
         </div>
         {error ? (
-          <div class="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert">
             {error}
           </div>
         ) : null}

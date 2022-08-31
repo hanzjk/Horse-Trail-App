@@ -22,6 +22,7 @@ function addCamp(
   amenitiesCheck,
   bannerName,
   bestSeasonsCheck,
+  campDescription,
   campName,
   campNotes,
   campSiteTypesCheck,
@@ -39,8 +40,8 @@ function addCamp(
   keywords,
   longitude,
   latitude,
-  nearByPlaces,
   paperworkRequired,
+  parkingImageName,
   parkName,
   petPolicy,
   phone,
@@ -49,6 +50,7 @@ function addCamp(
   reservationDescription,
   reservationEmail,
   reservationLink,
+  resOrPricing,
   restrictions,
   roadToCamp,
   state,
@@ -60,6 +62,7 @@ function addCamp(
       amenitiesCheck: amenitiesCheck,
       bannerName: bannerName,
       bestSeasonsCheck: bestSeasonsCheck,
+      campDescription: campDescription,
       campName: campName,
       campNotes: campNotes,
       campSiteTypesCheck: campSiteTypesCheck,
@@ -77,8 +80,8 @@ function addCamp(
       keywords: keywords,
       longitude: longitude,
       latitude: latitude,
-      nearByPlaces: nearByPlaces,
       paperworkRequired: paperworkRequired,
+      parkingImageName: parkingImageName,
       parkName: parkName,
       petPolicy: petPolicy,
       phone: phone,
@@ -87,6 +90,7 @@ function addCamp(
       reservationDescription: reservationDescription,
       reservationEmail: reservationEmail,
       reservationLink: reservationLink,
+      resOrPricing: resOrPricing,
       restrictions: restrictions,
       roadToCamp: roadToCamp,
       state: state,
@@ -116,8 +120,6 @@ function getAllCamps() {
       });
   });
 }
-
-
 
 //get image file as a url to download
 function getCampImages(name, imageName) {
@@ -241,7 +243,6 @@ function searchCamps(
       });
   });
 }
-
 
 export default {
   addCamp,

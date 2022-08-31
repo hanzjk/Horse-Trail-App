@@ -16,7 +16,7 @@ const styles = {
 };
 
 export default function DisplayCamp() {
-    const [campID, setCampID] = useState(null);
+  const [campID, setCampID] = useState(null);
 
   const [campDetails, setCampDetails] = useState({});
   const [currentValue, setCurrentValue] = useState(0);
@@ -46,14 +46,12 @@ export default function DisplayCamp() {
   };
 
   useEffect(() => {
-     var url = document.location.href;
-     var id = url.toString().split("/")[4];
-     setCampID(id);
+    var url = document.location.href;
+    var id = url.toString().split("/")[4];
+    setCampID(id);
     FireStoreService.getCamp(campID)
       .then((response) => {
-        console.log(response.data());
         setCampDetails(response.data());
-
         const website = document.getElementById("website");
         website.setAttribute("href", campDetails.website);
         const fb = document.getElementById("fb");
@@ -750,9 +748,85 @@ export default function DisplayCamp() {
                       borderRadius: "5px",
                     }}
                   >
+                    Camp Description
+                  </Card.Title>
+                  <div>{campDetails.campDescription}</div>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col md-3">
+              <Card style={{ border: "none" }}>
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      backgroundColor: "#101522",
+                      color: "white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Reviews
+                  </Card.Title>
+                  <div>{campDetails.reviews}</div>
+                </Card.Body>
+              </Card>
+            </div>
+          </div>
+          <br></br>
+          <div className="row text-center">
+            <div className="col md-3">
+              <Card style={{ border: "none" }}>
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      backgroundColor: "#101522",
+                      color: "white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Reservations and Pricing
+                  </Card.Title>
+                  <div>{campDetails.resPricing}</div>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col md-3">
+              <Card style={{ border: "none" }}>
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      backgroundColor: "#101522",
+                      color: "white",
+                      borderRadius: "5px",
+                    }}
+                  >
                     Nearby Places to Ride
                   </Card.Title>
                   <div>{campDetails.nearbyPlaces}</div>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="col md-4">
+              <Card style={{ border: "none" }}>
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      backgroundColor: "#101522",
+                      color: "white",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    Parking Image
+                  </Card.Title>
+                  <img
+                    alt="Parking Image"
+                    id="parkingImage"
+                    style={{
+                      display: "block",
+                      width: "20%",
+                      height: "auto",
+                      margin: "0px auto",
+                    }}
+                  ></img>
                 </Card.Body>
               </Card>
             </div>
