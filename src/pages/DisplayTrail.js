@@ -548,7 +548,7 @@ export default function DisplayTrail() {
                       borderRadius: "5px",
                     }}
                   >
-                    TrailNotes
+                    Trail Notes
                   </Card.Title>
                   <div>{trailDetails.trailNotes}</div>
                 </Card.Body>
