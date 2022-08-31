@@ -62,7 +62,7 @@ function SearchPage() {
   };
 
   const getImageURL = async (trail) => {
-    const url = await FireStoreService.getTrailImages(
+    const url = await FireStoreService.getTrailImageURL(
       trail.trailName,
       trail.bannerName
     );

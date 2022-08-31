@@ -146,7 +146,7 @@ function getGpxFiles(name, fileName) {
 }
 
 //get image file as a url to download
-function getTrailImages(name, imageName) {
+function getTrailImageURL(name, imageName) {
   return new Promise((resolve, reject) => {
     const imageRef = firebase
       .storage()
@@ -193,6 +193,7 @@ function addRatings(id, rate) {
   });
 }
 
+
 function getRating(id) {
   return new Promise((resolve, reject) => {
     var query = db.collection("trailsRatings");
@@ -217,5 +218,6 @@ export default {
   getGpxFiles,
   getRating,
   getTrailImages,
+  getTrailImageURL,
   getTrail,
 };
