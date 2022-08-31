@@ -4,8 +4,6 @@ import { FaListUl, FaMapMarkedAlt } from "react-icons/fa";
 import FireStoreService from "../utils/services/camps/FireStoreService";
 import { Card,Col } from "react-bootstrap";
 import GoogleMapPage from "./GoogleMapCampsPage";
-import Slider from "@mui/material/Slider";
-import Box from "@mui/material/Box";
 
 function SearchPage() {
   const [inputs, setInputs] = useState({
@@ -23,7 +21,6 @@ function SearchPage() {
   const [markers, setMarkers] = useState([]);
 
   const [imageURL, setImageURL] = useState({});
-  const [value, setValue] = useState([1, 25]);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -57,14 +54,6 @@ function SearchPage() {
     });
   };
 
-  // const getImageURL = async (trail) => {
-  //   const url = await FireStoreService.getCampImages(
-  //     camp.campName,
-  //     camp.bannerName
-  //   );
-  //   setImageURL({ [trail.id]: url });
-  //   return url;
-  // };
 
   const getSearchList = async () => {
     const data = await FireStoreService.searchCamps(
