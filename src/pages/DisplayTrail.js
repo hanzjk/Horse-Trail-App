@@ -135,7 +135,7 @@ export default function DisplayTrail() {
         displaySeasons(trailDetails.bestSeasonsCheck.bestSeasons);
         displayTrailHeads(trailDetails.trailHeadCheck.trailHead);
 
-        FireStoreService.getRating("5lJWqkV3aBbxsunYKIOl")
+        FireStoreService.getRating(trailID)
           .then((response) => {
             setRatings(
               response.docs.map((doc) => ({ ...doc.data(), id: doc.id }))

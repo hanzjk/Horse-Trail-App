@@ -17,7 +17,6 @@ import CampSearchPage from "./pages/CampSearchPage";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import TrailInfo from "./pages/TrailInfo";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

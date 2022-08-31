@@ -118,7 +118,7 @@ export default function DisplayCamp() {
         displaySeasons(campDetails.bestSeasonsCheck.bestSeasons);
         displayAmenities(campDetails.amenitiesCheck.amenities);
 
-        FireStoreService.getRating("Q1QXQTNfuoCu7d1IdI7Q")
+        FireStoreService.getRating(campID)
           .then((response) => {
             setRatings(
               response.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
