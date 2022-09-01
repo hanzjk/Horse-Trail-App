@@ -16,6 +16,7 @@ const styles = {
 };
 
 export default function DisplayTrail() {
+  const [userID, setUserID] = useState("AAAAAAA");
   const [trailID, setTrailID] = useState(null);
 
   const [trailDetails, setTrailDetails] = useState({});
@@ -24,12 +25,21 @@ export default function DisplayTrail() {
   const stars = Array(5).fill(0);
 
   const [reviewResult, setReviewResult] = useState("");
+  const [checkIn, setCheckInResult] = useState("");
 
   const [ratings, setRatings] = useState([]);
-    
+
   function addCheckIn(e) {
+    setCheckInResult("Waiting");
+
     e.preventDefault();
-    alert("S");
+    FireStoreService.addCheckins(userID, trailID)
+      .then(() => {
+        setCheckInResult("Success");
+      })
+      .catch((e) => {
+        setCheckInResult("Error");
+      });
   }
   const handleClick = (value) => {
     setCurrentValue(value);
@@ -51,6 +61,7 @@ export default function DisplayTrail() {
   };
 
   useEffect(() => {
+    
     var url = document.location.href;
     var id = url.toString().split("/")[4];
     setTrailID(id);
@@ -863,7 +874,23 @@ export default function DisplayTrail() {
                 ) : null}
               </div>
               <div className="col-md-5">
-                <button className="btn btn-primary" onClick={addCheckIn}> Check In</button>
+                <button className="btn btn-primary" onClick={addCheckIn}>
+                  Check In
+                </button>
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                {checkIn == "Waiting" ? (
+                  <div class="spinner-border text-primary " role="status"></div>
+                ) : null}
+                {checkIn == "Success" ? (
+                  <div class="alert alert-success mt-4" role="alert">
+                    Checked In Successfully
+                  </div>
+                ) : null}
+                {checkIn == "Error" ? (
+                  <div class="alert alert-danger mt-4" role="alert">
+                    Error occurred! Please try again.
+                  </div>
+                ) : null}
               </div>
             </div>
           </form>
